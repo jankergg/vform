@@ -5,7 +5,7 @@
 -->
 <template>
   <div class="root-select">
-    <div class="root-select-mask" v-if="readonly"></div>
+    <div class="root-select-mask" v-if="isReadOnly"></div>
     <popup-picker
     :title="title"
     :data="list"

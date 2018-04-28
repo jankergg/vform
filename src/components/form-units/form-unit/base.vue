@@ -64,12 +64,21 @@ const formUnitBase = Vue.extend({
     delPart: String
   },
   computed: {
+    // 获取根组件
     rootComp () {
       let par = this.$parent
       if (!par.formValues) {
         par.formValues = {}
       }
       return par
+    },
+    // 判断组件属于哪一种类型 inline/block
+    __form_block_type_ () {
+      let _t = {}
+      Object.values(FORM_BLOCK_ITEM).map(i => {
+        _t[i.name] = i
+      })
+      return _t
     },
     // 用于排序
     keys () {
@@ -88,12 +97,6 @@ const formUnitBase = Vue.extend({
   },
   methods: {
     getType (t) {
-      if (!this.__form_block_type_) {
-        this.__form_block_type_ = {}
-        Object.values(FORM_BLOCK_ITEM).map(i => {
-          this.__form_block_type_[i.name] = i
-        })
-      }
       if (this.__form_block_type_[t]) {
         return 'formBlock'
       }
@@ -210,9 +213,23 @@ const formUnitBase = Vue.extend({
           return true
         }
       }).catch(e => { return false })
+    },
+    resetFormValues () {
+      this.formValues = {}
     }
   },
   watch: {
+    formModels: {
+      deep: true,
+      handler (v, o) {
+        // 判断如果换了formModel 就重置formValues
+        let neo = this.__str(Object.keys(v))
+        let old = this.__str(Object.keys(o))
+        if (neo !== old) {
+          this.resetFormValues()
+        }
+      }
+    },
     formValues: {
       deep: true,
       handler (v, o) {

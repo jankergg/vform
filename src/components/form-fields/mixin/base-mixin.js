@@ -2,7 +2,11 @@
 /* @Description: 所有表单类型通用mixin,主要包含验证，数据处理等公共逻辑
 * @Date:   2017-09-13 15:41:02
 * @Last Modified by:   jankergg
-* @Last Modified time: 2018-04-26 19:25:08
+* @Last Modified time: 2018-04-27 13:15:36
+符合以下标准的方法或者变量才可放在本base-mixin, 否则会污染组件
+1、初始化操作 (挂载当前组件到formUnit)
+2、props 监听， 更新rules及value => innerValue
+3、验证方法（提供基本版，其它组件可以按需重写）
 */
 import formMixin from '../../mixin/tools-mixin'
 export default {
@@ -61,6 +65,7 @@ export default {
       // 如果该组件嵌套在另一个组件里, 这里指同层组件，比如input 和 select
       if (this.inset) {
         this.$emit('onChange', mod)
+        this.$emit('formChange', mod)
       } else {
         this.formUnit = this.formUnit || this.getFormUnit()
         this.$set(this.formUnit.formValues, this.name, mod.value || this.innerValue || '')

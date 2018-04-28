@@ -2,13 +2,14 @@
 * @Author: jankergg
 * @Date:   2017-09-13 15:41:02
 * @Last Modified by:   jankergg
-* @Last Modified time: 2018-04-26 19:06:48
+* @Last Modified time: 2018-04-27 16:22:48
 */
 import base from '../../mixin/base-mixin'
 export default {
   data () {
     return {
       innerValue: [],
+      __oldValue: '',
       autoTrigger: this.formModel.rules.autoTrigger
     }
   },
@@ -56,14 +57,19 @@ export default {
     selectInit () {
       this.onValidate()
       this.commit()
+      if (this.innerValue && this.innerValue.length) {
+        this.__oldValue = this.__str(this.innerValue)
+      }
     },
     // popup show
     onShow (v) {
       // this.onEvent('onShow', v)
     },
     // popup hide
-    onHide () {
+    onHide (v) {
+      if (!v) { return }
       let neo = this.__str(this.innerValue)
+      console.log(neo, this.__oldValue, v)
       if (neo !== this.__oldValue) {
         // 必须
         // vux 不同类型的组件，onHide触发时间不一致
@@ -76,6 +82,7 @@ export default {
             triggerType: 'onHide',
             value: this.innerValue
           })
+          this.__oldValue = neo
         })
       }
     },

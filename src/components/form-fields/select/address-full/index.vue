@@ -117,7 +117,7 @@
         dValid: false
       }
     },
-    props: ['model', 'value', 'name'],
+    props: ['formModel', 'name', 'index'],
     watch: {
       value (v) {
         this.innerValue = v

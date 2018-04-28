@@ -3,8 +3,11 @@
     <form-unit
     :formModels="formModel"
     @formChange="onChange"
-    @formEvent="onEvent"
-    ></form-unit>
+    @formEvent="onEvent">
+      <div slot="name">
+        <za-input></za-input>
+      </div>
+    </form-unit>
     <button @click="data1"> set data 1</button> <br>
     <button @click="data2"> set data 2</button>
   </div>
@@ -13,6 +16,7 @@
 <script>
 import { formUnit } from '../components/form-units'
 import modelData from './formModel'
+import {zaInput} from '../components/form-fields/input'
 
 export default {
   name: 'test-unit',
@@ -30,10 +34,10 @@ export default {
   },
   methods: {
     onEvent (t, v) {
-      console.log(t, 'xxx', v)
+      console.warn(t, 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', v)
     },
     onChange (v) {
-      console.warn('formChange::', JSON.stringify(v))
+      console.warn('formChange::', v)
     },
     data1 () {
       let nd = this.$children[0].__clone(modelData)
@@ -54,6 +58,7 @@ export default {
           label: 'address',
           type: 'za-address',
           vRules: 'required',
+          showDetail: true,
           placeholder: '请输入',
           errorMsg: '请输入'
         }
@@ -88,7 +93,8 @@ export default {
     }
   },
   components: {
-    formUnit
+    formUnit,
+    zaInput
   }
 }
 </script>

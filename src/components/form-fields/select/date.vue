@@ -6,6 +6,7 @@
 -->
 <template>
     <div class="time-item-box" :class="{isempty: isEmpty, showext: formModel.rules.showExtBtn}">
+      <div class="root-select-mask" v-if="isReadOnly"></div>
       <date-time
       @on-change="onChange"
       @on-hide="onHide"

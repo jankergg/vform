@@ -6,22 +6,30 @@
 -->
 <template>
   <div class="web-select-box">
-    <div class="select-mask" v-if="isReadOnly"></div>
+    <div class="root-select-mask" v-if="isReadOnly"></div>
     <x-address :list="datalist" placeholder="省 / 市 / 县" v-model="innerValue"
     @on-hide="onHide"
     @on-change="onChange"
     ></x-address>
+    <za-input
+      v-if="showInput"
+      @formChange="onInputChange"
+      :inset="true"
+      :formModel="inputModel"
+      :name="name">
+    </za-input>
   </div>
 </template>
 <script>
   import { XAddress } from '../../../vux'
+  import zaInput from '../../input/input'
   import rootSelectMx from '../mixin/select-mixin'
 
-  const GET_DICTITEMS = ''
   export default {
     name: 'za-address',
     components: {
-      XAddress
+      XAddress,
+      zaInput
     },
     mixins: [rootSelectMx],
     data () {
@@ -31,6 +39,18 @@
         originValue: [],
         originName: [],
         rawText: '',
+        inputValue: '',
+        inputError: '',
+        inputValid: false,
+        inputModel: {
+          rules: {
+            type: 'za-input',
+            vRules: 'required|min:8',
+            readOnly: true,
+            placeholder: '请输入详细地址'
+          },
+          value: this.formModel.value.detail
+        },
         datalist: []
       }
     },
@@ -40,6 +60,7 @@
     },
     watch: {
       innerValue (v) {
+        this.inputModel.rules.readOnly = !(v && v.length)
         this.onValidate()
         this.commit()
       },
@@ -51,6 +72,9 @@
       }
     },
     computed: {
+      showInput () {
+        return this.formModel.rules.showDetail
+      },
       $value: {
         get () {
           let v = this.formModel.value
@@ -80,10 +104,34 @@
       this.datalist = JSON.parse(window.__select_area_data)
     },
     methods: {
+      onValidate () {
+        return new Promise((resolve, reject) => {
+          let mod = this.innerModel()
+          this.isValid = mod.isValid
+          if (this.isValid) {
+            resolve(true)
+          } else {
+            reject(false)
+          }
+        }).catch(e => {return false})
+      },
+      onInputChange (v) {
+        this.inputValue = v.value
+        this.inputValid = v.isValid
+        this.inputError = v.msg
+        this.$nextTick(() => {
+          this.onValidate()
+          this.commit()
+        })
+      },
       __errorMsg () {
+        if (this.showInput && !this.inputValid) {
+          return this.inputError
+        }
         return this.innerValue && this.innerValue.length ? null : (this.formModel.rules.placeholder || '请选择省、市、区')
       },
-      onHide () {
+      onHide (v) {
+        if (!v) { return }
         let neo = this.__str(this.innerValue)
         if (neo !== this.__oldValue) {
           // 必须
@@ -98,6 +146,7 @@
               triggerType: 'onHide',
               value: mod.value
             })
+            this.__oldValue = neo
           })
         }
       },
@@ -133,14 +182,19 @@
           _address.entry_district.value = _value[2]
         }
         // console.error(this.__str(_value), this.__str(_address))
+        if (this.showInput) {
+          isValid = this.inputValid
+        }
+        if (_$defAddr === this.__str(_address)) {
+          isValid = false
+        }
         // if not required
         if (!this.formModel.rules.vRules || this.formModel.rules.vRules.indexOf('required') === -1) {
           // if not touched
-          if (_$defAddr === this.__str(_address)) {
-            isValid = true
-          }
+          isValid = true
         }
         // mixins update
+        _address.detail = this.inputValue || ''
         return {
           name: this.name,
           value: this.__clone(_address),

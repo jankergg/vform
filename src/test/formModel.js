@@ -9,6 +9,25 @@ export default {
       errorMsg: '请输入如何看待寿险营销'
     }
   },
+  sex: {
+    value: 'M',
+    rules: {
+      label: 'sex',
+      type: 'za-sex',
+      vRules: 'required',
+      placeholder: '请选择',
+      errorMsg: '请输入如何看待寿险营销'
+    }
+  },
+  Married: {
+    value: 'Y',
+    rules: {
+      label: 'Married',
+      type: 'za-yesno',
+      vRules: 'required',
+      errorMsg: '请输入如何看待寿险营销'
+    }
+  },
   CertType: {
     value: 'yyyyy',
     rules: {

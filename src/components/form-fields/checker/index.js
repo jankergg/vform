@@ -5,6 +5,14 @@ import zaQuestion from './check-question'
 import zaSex from './check-sex'
 import zaYesno from './check-yesno'
 
+export {
+  zaSex,
+  zaYesno,
+  zaCheckList,
+  zaCheckItem,
+  zaQuestion
+}
+
 export default {
   root: { },
   inline: {
