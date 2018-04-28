@@ -1,15 +1,21 @@
 .DS_Store
+.idea/
+.vscode/
+.vs/
 node_modules/
-/dist/
+# 祥志的windows系统记录git账号信息的文件
+.git-credentials.*
+dist/
+*.iml
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-/test/unit/coverage/
+test/unit/coverage
+test/e2e/reports
+selenium-debug.log
+# webpack 打包结果分析文件
+stats.json
+/src/hock.js
 
-# Editor directories and files
-.idea
-.vscode
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
+modules/issue/.idea/*
+modules/issue/node_modules/*
