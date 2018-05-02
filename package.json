@@ -4,7 +4,6 @@
   "version": "0.0.1",
   "description": "form generator build on vue",
   "author": "jankergg <jankergg@gmail.com>",
-  "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
