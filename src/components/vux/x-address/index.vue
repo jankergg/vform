@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import name2value from '../../filters/name2value'
-import value2name from '../../filters/value2name'
+import name2value from '../../../filters/name2value'
+import value2name from '../../../filters/value2name'
 import PopupPicker from '../popup-picker'
 
 export default {

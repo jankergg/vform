@@ -11,8 +11,8 @@
 
 <script>
 import Picker from './datetimepicker'
-import Uuid from '../../mixin/uuid-mixin'
-import format from '../../tools/date/format'
+import Uuid from '../../../mixin/uuid-mixin'
+import format from '../../../tools/date/format'
 
 export default {
   name: 'datetime',
@@ -231,7 +231,7 @@ export default {
 </script>
 
 <style lang="less">
-@import '../../styles/variable.less';
+@import '../../../styles/variable.less';
 .weui-cells_form .vux-datetime-value.weui-cell__ft {
   font-size:inherit;
 }

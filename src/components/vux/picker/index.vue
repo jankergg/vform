@@ -12,7 +12,7 @@
 import Scroller from './scroller'
 import { Flexbox, FlexboxItem } from '../flexbox'
 import Manager from './chain'
-import value2name from '../../filters/value2name'
+import value2name from '../../../filters/value2name'
 
 export default {
   name: 'picker',

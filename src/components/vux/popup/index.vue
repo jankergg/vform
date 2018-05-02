@@ -134,7 +134,7 @@ export default {
 </script>
 
 <style lang="less">
-@import '../../styles/variable.less';
+@import '../../../styles/variable.less';
 
 .vux-popup-dialog {
   position: fixed;

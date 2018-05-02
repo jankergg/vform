@@ -25,14 +25,14 @@
 <script>
 import Vue from 'vue'
 
-import VeeValidate from '../../libs/validator'
-import formMixin from '../../mixin/tools-mixin'
+import VeeValidate from '../../../libs/validator'
+import formMixin from '../../../mixin/tools-mixin'
 import * as ValidateRules from '../mixin/extend'
 
 import formRow from '../../layouts/form-row'
 import formBlock from '../../layouts/form-block'
 import {FORM_BLOCK_ITEM} from '../../form-fields'
-import uuid from '../../mixin/uuid-mixin'
+import uuid from '../../../mixin/uuid-mixin'
 uuid.created()
 const formUnitBase = Vue.extend({
   formType: 'formUnit',

@@ -46,10 +46,10 @@
 import Picker from '../picker'
 import Popup from '../popup'
 import { Flexbox, FlexboxItem } from '../flexbox'
-import array2string from '../../filters/array2String'
-import value2name from '../../filters/value2name'
-import uuid from '../../mixin/uuid-mixin'
-import TransferDom from '../../directives/transfer-dom'
+import array2string from '../../../filters/array2String'
+import value2name from '../../../filters/value2name'
+import uuid from '../../../mixin/uuid-mixin'
+import TransferDom from '../../../directives/transfer-dom'
 
 const getObject = function (obj) {
   return JSON.parse(JSON.stringify(obj))
@@ -210,8 +210,8 @@ export default {
 </script>
 
 <style lang="less">
-@import '../../styles/variable.less';
-@import '../../styles/1px.less';
+@import '../../../styles/variable.less';
+@import '../../../styles/1px.less';
 
 .vux-cell-primary {
   flex: 1;

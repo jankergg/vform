@@ -21,7 +21,7 @@ onEvent: function   用于触发onEvent 的emit事件，只能主动触发(通�
 onChange: function  用于触发onChange 的emit事件，数据变更时触发，包括主动和被动
 */
 // 工具方法集合
-import formMixin from '../../mixin/tools-mixin'
+import formMixin from '../../../mixin/tools-mixin'
 export default {
   data () {
     return {

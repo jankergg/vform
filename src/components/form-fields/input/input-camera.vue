@@ -26,7 +26,7 @@
 </template>
 <script>
   import rootInput from './input'
-  import formMixin from '../../mixin/tools-mixin'
+  import formMixin from '../../../mixin/tools-mixin'
   import Zip from '../esign/zip'
 
   const OCRIDCARD = ''

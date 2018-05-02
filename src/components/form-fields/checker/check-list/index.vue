@@ -10,8 +10,8 @@
   </div>
 </template>
 <script>
-  import uuid from '../../../mixin/uuid-mixin'
-  import tools from '../../../mixin/tools-mixin'
+  import uuid from '../../../../mixin/uuid-mixin'
+  import tools from '../../../../mixin/tools-mixin'
 
   export default {
     name: 'za-check-list',
