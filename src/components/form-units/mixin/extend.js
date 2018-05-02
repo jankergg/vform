@@ -175,7 +175,7 @@ export const bankcard = {
     cn: (field, args) => '银行卡' + msgFormatError
   },
   validate: (value, args) => {
-    // return /^\d{16}|\d{19}$/.test(trimStr(value))
+    // return /^\d{16}|\d{19}$/.demo(trimStr(value))
     return /^([1-9]{1})(\d{15}|\d{18})$/.test((value).replace(/\s/g, ""))
   }
 }
@@ -185,7 +185,7 @@ export const tel = {
     cn: (field, args) => field + msgFormatError
   },
   validate: (value, args) => {
-    // return /^1[3|4|5|7|8][0-9]\d{4,8}$/.test(trimStr(value))
+    // return /^1[3|4|5|7|8][0-9]\d{4,8}$/.demo(trimStr(value))
     return /^([0-9]{3,4}-)?[0-9]{7,8}$/.test(trimStr(value))
   }
 }
@@ -195,7 +195,7 @@ export const zipcode = {
     cn: (field, args) => field + msgFormatError
   },
   validate: (value, args) => {
-    // return /^1[3|4|5|7|8][0-9]\d{4,8}$/.test(trimStr(value))
+    // return /^1[3|4|5|7|8][0-9]\d{4,8}$/.demo(trimStr(value))
     return /^[1-9][0-9]{5}$/.test(trimStr(value))
   }
 }
@@ -205,7 +205,7 @@ export const age = {
     cn: (field, args) => field + msgFormatError
   },
   validate: (value, args) => {
-    // return /^1[3|4|5|7|8][0-9]\d{4,8}$/.test(trimStr(value))
+    // return /^1[3|4|5|7|8][0-9]\d{4,8}$/.demo(trimStr(value))
     return /^(?:[1-9][0-9]?|1[01][0-9]|120)$/.test(trimStr(value))
   }
 }

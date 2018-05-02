@@ -610,7 +610,7 @@ babel-plugin-istanbul@^4.1.1:
   dependencies:
     find-up "^2.1.0"
     istanbul-lib-instrument "^1.7.5"
-    test-exclude "^4.1.1"
+    demo-exclude "^4.1.1"
 
 babel-plugin-syntax-async-functions@^6.8.0:
   version "6.13.0"
@@ -6748,7 +6748,7 @@ tar@^2.2.1:
 
 test-exclude@^4.1.1:
   version "4.1.1"
-  resolved "http://registry.npm.taobao.org/test-exclude/download/test-exclude-4.1.1.tgz#4d84964b0966b0087ecc334a2ce002d3d9341e26"
+  resolved "http://registry.npm.taobao.org/demo-exclude/download/demo-exclude-4.1.1.tgz#4d84964b0966b0087ecc334a2ce002d3d9341e26"
   dependencies:
     arrify "^1.0.1"
     micromatch "^2.3.11"

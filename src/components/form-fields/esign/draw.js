@@ -257,7 +257,7 @@ Draw.prototype = {
     return canvas
   },
   downloadPNGImage (image) {
-    const url = image.replace('image/png', 'image/octet-streamContent-Disposition:attachmentfilename=test.png')
+    const url = image.replace('image/png', 'image/octet-streamContent-Disposition:attachmentfilename=demo.png')
     window.location.href = url
   },
   dataURLtoBlob (dataURL) {

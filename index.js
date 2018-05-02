@@ -4,7 +4,7 @@
 * @Last Modified by:   jankergg
 * @Last Modified time: 2018-05-02 14:32:52
 */
-import Components form './src/components'
+import Components from './src/components'
 
 // formUnit
 const formUnit = Components.formUnit

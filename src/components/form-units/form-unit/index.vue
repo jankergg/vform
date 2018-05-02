@@ -47,11 +47,7 @@
 <script>
 import formUnitBase from './base'
 export default formUnitBase.extend({
-  name: 'form-unit',
-  created () {
-    //
-    window.fu = this
-  }
+  name: 'form-unit'
 })
 </script>
 

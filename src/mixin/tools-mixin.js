@@ -111,7 +111,7 @@ export default {
       let obj = this.__keyValue({}, data)
       this.__fixInputNames__ = {}
       for (let i in obj) {
-        // if (!/^\d+$/.test(i)) {
+        // if (!/^\d+$/.demo(i)) {
         // }
         if (obj[i].name && obj[i].value) {
           this.__fixInputNames__[i] = obj[i]
