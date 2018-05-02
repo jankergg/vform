@@ -2,7 +2,7 @@
 * @Author: jankergg
 * @Date:   2017-12-21 10:52:26
 * @Last Modified by:   jankergg
-* @Last Modified time: 2018-04-28 17:22:59
+* @Last Modified time: 2018-05-02 11:48:04
 */
 // checker
 import checkers from './checker'
@@ -11,6 +11,14 @@ import inputs from './input'
 // select
 import selects from './select'
 
+export default {
+  ...checkers.inline,
+  ...checkers.block,
+  ...inputs.inline,
+  ...inputs.block,
+  ...selects.inline,
+  ...selects.block
+}
 // question 组件 slot mixin
 // 用来扩展新的 slot 组件
 import questionSlot from './select/mixin/question-slot-mixin'

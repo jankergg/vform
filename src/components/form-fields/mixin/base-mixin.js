@@ -2,12 +2,25 @@
 /* @Description: 所有表单类型通用mixin,主要包含验证，数据处理等公共逻辑
 * @Date:   2017-09-13 15:41:02
 * @Last Modified by:   jankergg
-* @Last Modified time: 2018-04-27 13:15:36
-符合以下标准的方法或者变量才可放在本base-mixin, 否则会污染组件
-1、初始化操作 (挂载当前组件到formUnit)
-2、props 监听， 更新rules及value => innerValue
-3、验证方法（提供基本版，其它组件可以按需重写）
+* @Last Modified time: 2018-05-02 11:33:37
+********************************************************
+*符合以下标准的方法或者变量才可放在本base-mixin, 否则会污染组件 *
+*1、初始化操作 (挂载当前组件到formUnit)                     *
+*2、props 监听， 更新rules及value => innerValu            *
+*3、验证方法（提供基本版，其它组件可以按需重写                 *
+*********************************************************
+** 注: 通用组件属性 **
+innerValue: any;  组件当前值
+isValid: boolean;   是否通过验证
+isReadOnly: boolean; 是否只读
+__oldValue: string;  旧值的JSON形式
+formUnit: Vue Object; 当前组件所属的formUnit
+onValidate: function 验证方法，会根据组件类型不同而被组件改写
+commit: function   提交当前组件的值，及状态。会先执行onValidate,再获取innerModel,并提交
+onEvent: function   用于触发onEvent 的emit事件，只能主动触发(通过UI交互，而且非数据交互)
+onChange: function  用于触发onChange 的emit事件，数据变更时触发，包括主动和被动
 */
+// 工具方法集合
 import formMixin from '../../mixin/tools-mixin'
 export default {
   data () {
@@ -15,13 +28,19 @@ export default {
       innerValue: this.formModel.value, // 只用于内部，用来存储组件最新的值，可以是任何数据类型
       isValid: false, // 组件状态，是否通过验证
       isReadOnly: false, // 是否只读
-      __oldValue: '',
+      __oldValue: '', // 存储旧值的JSON字串，用来过滤数据变更
       formUnit: this.getFormUnit() // 根组件 formUnit
     }
   },
   mixins: [formMixin],
   created () {
     // 挂载到formUnit
+    // 挂载到formUnit只是为了便于主动验证及特殊场景需求
+    // 不应直接操作写入fields成员的值, 如：
+    // var idCard = this.formUnit.getItem('idCard')
+    // idCard.innerValue = 'xxx' （禁止此类操作）
+    // idCard.onValidate() (可以)
+    // let v = idCard.isValid (可以)
     this.formUnit.fields[this.name] = this
   },
   computed: {
@@ -30,7 +49,22 @@ export default {
       return !!this.formModel.rules.readOnly || !!this.formModel.rules.disabled
     }
   },
-  props: ['inset'],
+  // inset: 当组件被嵌套进另一个组件的时候，inset应该为true
+  // index: 索引值，正常情况下会通过formUnit传进来
+  // formModel: 组件的初始值及rules. 必须
+  // name: 组件name. 必须
+  props: {
+    inset: Boolean,
+    index: [Number, String],
+    formModel: {
+      required: true,
+      type: Object
+    },
+    name: {
+      required: true,
+      type: String
+    }
+  },
   watch: {
     // 值更新后 触发验证
     // 验证方法 onValidate 根据组件类型有所不同，被组件复写
@@ -48,6 +82,7 @@ export default {
     }
   },
   methods: {
+    // 验证, 只提供基本验证，可以被组件复写
     onValidate () {
       return new Promise((resolve, reject) => {
         let isValid = !!(this.innerValue && this.innerValue.length)
@@ -62,7 +97,7 @@ export default {
     // 用于向formUnit提交数据更新
     commit () {
       let mod = this.innerModel()
-      // 如果该组件嵌套在另一个组件里, 这里指同层组件，比如input 和 select
+      // 如果该组件嵌套在另一个组件里
       if (this.inset) {
         this.$emit('onChange', mod)
         this.$emit('formChange', mod)
@@ -86,18 +121,22 @@ export default {
         this.formUnit.onEvent(type, val)
       }
     },
+    // 获取当前所在formUnit
     getFormUnit () {
       let parent = this.$parent
       for (; ;) {
         if (!parent.formValidator) {
           parent = parent.$parent
+          if (!parent.$parent) {
+            throw new Error ('formUnit未注册validator!')
+          }
         } else {
           return parent
         }
       }
       return parent
     },
-    // 获取当前表单项的各种状态
+    // 获取当前表单项的各种状态, 对外暴露
     innerModel () {
       return {
         name: this.name,

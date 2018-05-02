@@ -1,6 +1,7 @@
 {
   "name": "vform",
-  "version": "1.0.0",
+  "main": "index.js",
+  "version": "0.0.1",
   "description": "form generator build on vue",
   "author": "jankergg <jankergg@gmail.com>",
   "private": true,

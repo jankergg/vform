@@ -1,30 +1,26 @@
 # form-unit 表单组件用法：
 ## `mixin`使用场景：
-- unit-mixin: 页面中只包含一组formUnit，并且不需要动态增加，`unitMix`会将表单数据注入到页面中
-- multi-mixin: 页面中需要动态增加表单单元，`multiMix`会将表单注入到formUnit的**父级组件** （注意，不一定是页面）
+- base-mixin: 页面中需要通过slot添加表单项，`base-mixin`会将表单注入到formUnit的**父级组件**
 
 ### 推荐用法：
 ```html
   <template>
     <form-unit
-    :formModels="$formModels"
-    :formRules="$formRules"
+    :formModel="formModel"
+    @onEvent="onEvent"
     @formChange="onChange">
     </form-unit>
   </template>
 ```
 ```javascript
-  import {formUnit, unitMix} from '@/components/unit'
+  import {formUnit} from '@/components/unit'
 
   // 导入数组模型
   import your-form-models
-  import your-form-rules
-
   export default {
     data () {
       return {
         formModels: your-form-models
-        formModels: your-form-rules
       }
     }
     mixins: [unitMix],
@@ -32,44 +28,10 @@
     // 页面业务逻辑相关
     // 非页面逻辑的功能，考虑在mixin中添加
     methods: {
-      // 获取数据
-      getData () {
-        this.axios.get('dataApi').then(res => {
-          if (res.data.success) {
-            // __Model 是定义在 unit-mixin中的可计算值，用来转换数据结构
-            // 默认返回 formModels. 可以通过 __modHelper 添加数据过滤器
-            this.__Model = res.data.resultList
-          }
-        })      },
-      __modHelper (data) {
-        // data = data.map(i => i.value = '')
-        return data
-      },
-      nextStep () {
-        // 报错信息在 fromErrors对象，由unitMix维护
-        // isValid, errorMsg 由 unitMix维护
-        if (!this.isValid) {
-          this.__toast(this.errorMsg)
-        }
-        // form 对象由 unitMix 自动更新及维护
-        this.axios.post('your-api', Object.values(this.form)).then(res => {
-          alert('提交成功')
-        })
-      }
     },
     // 如需对表单结果添加自定义行为
     // 比如根据某个表单项的返回值，改变其它表单项的值
     watch: {
-      form: {
-        deep: true,
-        handler (v) {
-          if (v['inputA'].value) {
-            // 更新表单的值 应该通过 $formModels, 而不是 formModels
-            // 因为 formModels 有可能是props传值进来的，无法修改
-            this.$formModels['inputB'].value = 'xxx'
-          }
-        }
-      }
     }
   }
 ```

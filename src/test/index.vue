@@ -16,7 +16,7 @@
 <script>
 import { formUnit } from '../components/form-units'
 import modelData from './formModel'
-import {zaInput} from '../components/form-fields/input'
+import za from '../components/form-fields'
 
 export default {
   name: 'test-unit',
@@ -26,6 +26,7 @@ export default {
     }
   },
   created () {
+    this.za = za
     window.test = this
     setTimeout(() => {
       // this.formModel = modelData
@@ -93,8 +94,7 @@ export default {
     }
   },
   components: {
-    formUnit,
-    zaInput
+    formUnit
   }
 }
 </script>
