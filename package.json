@@ -20,12 +20,12 @@
     "array-shuffle": "^1.0.1",
     "autosize": "^3.0.20",
     "lodash.debounce": "^4.0.8",
-    "lodash.throttle": "^4.1.1",
-    "vue": "^2.5.16",
-    "vue-template-compiler": "^2.5.2",
-    "webpack": "^3"
+    "lodash.throttle": "^4.1.1"
   },
   "devDependencies": {
+    "vue": "^2.5.16",
+    "vue-template-compiler": "^2.5.2",
+    "webpack": "^3",
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.22.1",
     "babel-eslint": "^8.2.1",

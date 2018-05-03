@@ -26,7 +26,6 @@ export default {
     }
   },
   created () {
-    this.za = za
     window.test = this
     setTimeout(() => {
       // this.formModel = modelData

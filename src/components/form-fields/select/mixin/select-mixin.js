@@ -81,7 +81,6 @@ export default {
     onHide (v) {
       if (!v) { return }
       let neo = this.__str(this.innerValue)
-      console.log(neo, this.__oldValue, v)
       if (neo !== this.__oldValue) {
         // 必须
         // vux 不同类型的组件，onHide触发时间不一致

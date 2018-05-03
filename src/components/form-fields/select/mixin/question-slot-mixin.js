@@ -5,6 +5,7 @@ export default {
     return {
       errorMsg: null,
       formErrors: {},
+      formModel: {rules: {}, value: ''},
       $ioptions: null,
       rules: null,
       models: null

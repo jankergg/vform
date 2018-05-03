@@ -26,6 +26,7 @@ export default {
   data () {
     return {
       innerValue: this.formModel.value, // 只用于内部，用来存储组件最新的值，可以是任何数据类型
+      innerRules: this.formModel.rules,
       isValid: false, // 组件状态，是否通过验证
       isReadOnly: false, // 是否只读
       __oldValue: '', // 存储旧值的JSON字串，用来过滤数据变更
@@ -68,10 +69,11 @@ export default {
   watch: {
     // 值更新后 触发验证
     // 验证方法 onValidate 根据组件类型有所不同，被组件复写
-    'formModel.value': {
+    formModel: {
       deep: true,
       handler (v) {
-        this.innerValue = v
+        this.innerValue = v.value
+        this.innerRules = v.rules
       }
     },
     innerValue: {
