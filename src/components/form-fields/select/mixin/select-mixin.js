@@ -33,9 +33,13 @@ export default {
     'formModel.value': {
       deep: true,
       handler (v) {
-        if (this.__innerValueType === 'string') {
+        if (this.innerValueType === 'string') {
           v = v || ''
-          this.innerValue = v
+          if (typeof v === 'string') {
+            this.innerValue = v
+          } else {
+            this.innerValue = v[0]
+          }
         } else {
           v = v || []
           if (typeof v === 'string') {
