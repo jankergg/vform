@@ -27,13 +27,25 @@ export default {
     },
     placeholder () {
       return this.formModel.rules.placeholder || '请选择'
-    },
-    isValid () {
-      if (!this.formModel.rules.vRules || this.formModel.rules.vRules.indexOf('required') == -1) {
-        return true
-      }
-      return !!(this.innerValue && this.innerValue.length)
     }
+  },
+  watch: {
+    'formModel.value': {
+      deep: true,
+      handler (v) {
+        if (this.__innerValueType === 'string') {
+          v = v || ''
+          this.innerValue = v
+        } else {
+          v = v || []
+          if (typeof v === 'string') {
+            this.innerValue = v.split('/')
+          } else {
+            this.innerValue = v
+          }
+        }
+      }
+    },
   },
   methods: {
     // 根据组件转换innerValue数据类型

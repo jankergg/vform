@@ -39,6 +39,7 @@ export default {
       isEmpty: true,
       isLong: false,
       rules: null,
+      __innerValueType: 'string',
       innerValue: this.formModel.value
     }
   },

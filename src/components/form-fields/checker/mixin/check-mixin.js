@@ -24,6 +24,7 @@ export default {
   },
   methods: {
     checkInit () {
+      this.innerValue = this.formModel.value
       this.onValidate()
       this.commit()
     },
