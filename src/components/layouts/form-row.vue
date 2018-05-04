@@ -4,7 +4,7 @@
       在这个组件修改样式
 -->
 <template>
-  <row-2-col :name="name" :formModel="formModel" :index="index">
+  <row-2-col>
     <template slot="label" v-if="formModel.rules.label">{{formModel.rules.label}}</template>
     <template slot="val" v-if="formModel.rules.type">
       <component
@@ -30,7 +30,9 @@
     props: {
       formModel: Object,
       index: [Number, String],
-      name: String
+      name: String,
+      // 获取formUnit内的slot
+      slots: [Array, Object]
     },
     methods: {
       getType (type) {
@@ -41,6 +43,10 @@
             name = i
             return name
           }
+        }
+        // 如果存在于slot中
+        if (this.slots[type]) {
+          return type
         }
         throw new Error('表单' + type + '类型不存在！')
       }

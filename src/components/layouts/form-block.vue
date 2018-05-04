@@ -17,7 +17,7 @@
         </root-input>
 -->
 <template>
-  <row-1-col :name="name" :formModel="formModel" :index="index">
+  <row-1-col>
     <template slot="label" v-if="formModel.rules.label">{{formModel.rules.label}}</template>
     <template slot="val">
       <slot :name="name">

@@ -60,6 +60,10 @@
       }
     },
     methods: {
+      // 把 innerValue由数组转化为字符
+      __toValue (v) {
+        return v[0]
+      },
       innerModel () {
         let val = ''
         if (typeof this.innerValue === 'string') {
@@ -74,7 +78,7 @@
         // mixins update
         return {
           name: this.name,
-          value: val || '',
+          value: (typeof this.__toValue === 'function') ? this.__toValue(val) : val,
           msg: this.isValid ? null : this.formModel.rules.errorMsg || this.formModel.rules.placeholder,
           isValid: this.isValid
         }

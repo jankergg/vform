@@ -4,9 +4,14 @@
     :formModels="formModel"
     @formChange="onChange"
     @formEvent="onEvent">
-      <div slot="name">
-        <za-input></za-input>
-      </div>
+      <template slot="cust">
+        <div>
+          <test-cust
+            :formModel="formModel.cust"
+            :name="'cust'"
+          ></test-cust>
+        </div>
+      </template>
     </form-unit>
     <button @click="data1"> set data 1</button> <br>
     <button @click="data2"> set data 2</button>
@@ -16,7 +21,7 @@
 <script>
 import { formUnit } from '../components/form-units'
 import modelData from './formModel'
-import za from '../components/form-fields'
+import testCust from './test-custom'
 
 export default {
   name: 'test-unit',
@@ -27,10 +32,6 @@ export default {
   },
   created () {
     window.test = this
-    setTimeout(() => {
-      // this.formModel = modelData
-      // this.data1()
-    }, 2500)
   },
   methods: {
     onEvent (t, v) {
@@ -89,11 +90,34 @@ export default {
           errorMsg: '请输入'
         }
       }
+      nd['cust'] = {
+        value: {
+          select: 'sssss',
+          name: 'jankergg'
+        },
+        rules: {
+          label: '个人信息',
+          select: {
+            label: '国家',
+            vRules: 'required',
+            options: [['aaaaa', 'bbbbb', 'ccccc']],
+            placeholder: '请输入',
+            errorMsg: '请输入'
+          },
+          name: {
+            label: '名字',
+            vRules: 'required',
+            placeholder: '请输入',
+            errorMsg: '请输入'
+          }
+        }
+      }
       this.formModel = nd
     }
   },
   components: {
-    formUnit
+    formUnit,
+    testCust
   }
 }
 </script>

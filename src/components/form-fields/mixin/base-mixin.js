@@ -138,13 +138,18 @@ export default {
       }
       return parent
     },
+    __errorMsg () {
+      return this.formModel.rules.errorMsg || this.formModel.rules.placeholder || '请填' + this.formModel.rules.label
+    },
     // 获取当前表单项的各种状态, 对外暴露
     innerModel () {
+      // 注意： __toValue 是个转换数据的方法，可以按需要在组件里写，如果不需要转，就不要写
+      console.warn(this.name, '__toValue::', this.__toValue)
       return {
         name: this.name,
-        value: this.innerValue,
+        value: (typeof this.__toValue === 'function') ? this.__toValue(this.innerValue) : this.innerValue,
         index: this.index,
-        msg: this.formModel.rules.errorMsg || this.__errorMsg() || this.formModel.rules.placeholder || '请填' + this.formModel.rules.label,
+        msg: this.__errorMsg(),
         isValid: this.isValid
       }
     }

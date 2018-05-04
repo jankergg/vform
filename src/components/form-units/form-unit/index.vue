@@ -31,12 +31,17 @@
     </div>
     <div class="weui-cells weui-cells_form">
       <template v-for="(model, key, index) in formModels">
+        <slot v-if="$slots[key]" :name="key" :index="index" :formModel="model">
+
+        </slot>
         <component
+        v-else
         :is="getType(model.rules.type)"
         :key="key"
         :index="index"
         :formModel="model"
         :name="key"
+        :slots="$slots"
         @formChange="onChange">
         </component>
       </template>
@@ -47,7 +52,11 @@
 <script>
 import formUnitBase from './base'
 export default formUnitBase.extend({
-  name: 'form-unit'
+  name: 'form-unit',
+  created () {
+    // debug only TODO: remove this
+    window.fu = this
+  }
 })
 </script>
 
