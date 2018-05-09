@@ -6,8 +6,14 @@
 */
 import * as formUnits from './form-units'
 import * as formFileds from './form-fields'
+import row1Col from './layouts/row1col'
+import row2Col from './layouts/row2col'
+import row3Col from './layouts/row3col'
 
 export default {
   ...formUnits,
-  ...formFileds
+  ...formFileds,
+  row1Col,
+  row2Col,
+  row3Col
 }

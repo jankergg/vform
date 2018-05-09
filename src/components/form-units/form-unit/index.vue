@@ -56,6 +56,12 @@ export default formUnitBase.extend({
   created () {
     // debug only TODO: remove this
     window.fu = this
+    // 注册验证规则
+    for (let i in this.extends) {
+      if (this.extends[i].messages && this.extends[i].validate) {
+        this.formValidator.extend(i, this.extends[i])
+      }
+    }
   }
 })
 </script>

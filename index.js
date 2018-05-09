@@ -5,7 +5,7 @@
 * @Last Modified time: 2018-05-02 14:32:52
 */
 import Components from './src/components'
-
+import baseMixin from './src/components/form-fields/mixin/base-mixin'
 // formUnit
 const formUnit = Components.formUnit
 
@@ -30,7 +30,12 @@ const zaDate = Components.zaDate
 const zaAddress = Components.zaAddress
 const zaAddressFull = Components.zaAddressFull
 
+const row1Col = Components.row1Col
+const row2Col = Components.row2Col
+const row3Col = Components.row3Col
+
 export {
+  baseMixin,
   formUnit,
   zaSex,
   zaYesno,
@@ -45,5 +50,8 @@ export {
   zaSelect,
   zaDate,
   zaAddress,
-  zaAddressFull
+  zaAddressFull,
+  row1Col,
+  row2Col,
+  row3Col
 }

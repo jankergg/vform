@@ -31,12 +31,11 @@ import * as ValidateRules from '../mixin/extend'
 
 import formRow from '../../layouts/form-row'
 import formBlock from '../../layouts/form-block'
-import {FORM_BLOCK_ITEM} from '../../form-fields'
+import { FORM_BLOCK_ITEM } from '../../form-fields'
 import uuid from '../../../mixin/uuid-mixin'
-uuid.created()
 const formUnitBase = Vue.extend({
   formType: 'formUnit',
-  data () {
+  data() {
     return {
       formValues: {},
       formErrors: {},
@@ -52,20 +51,29 @@ const formUnitBase = Vue.extend({
     titleConfig: Object,
     formModels: {
       type: Object,
-      default () {
+      default() {
         return {}
       }
     },
     index: [String, Number],
     name: {
       type: [String, Number, Object],
-      default: `formUnit_${uuid.uuid}`
+      default() {
+        uuid.created();
+        return `formUnit_${uuid.uuid}`
+      }
+    },
+    extends: {
+      type: [Object, Array],
+      default() {
+        return []
+      }
     },
     delPart: String
   },
   computed: {
     // 获取根组件
-    rootComp () {
+    rootComp() {
       let par = this.$parent
       if (!par.formValues) {
         par.formValues = {}
@@ -73,7 +81,7 @@ const formUnitBase = Vue.extend({
       return par
     },
     // 判断组件属于哪一种类型 inline/block
-    __form_block_type_ () {
+    __form_block_type_() {
       let _t = {}
       Object.values(FORM_BLOCK_ITEM).map(i => {
         _t[i.name] = i
@@ -81,7 +89,7 @@ const formUnitBase = Vue.extend({
       return _t
     },
     // 用于排序
-    keys () {
+    keys() {
       let key
       let keys = []
       let obj = this.formModels
@@ -96,14 +104,14 @@ const formUnitBase = Vue.extend({
     }
   },
   methods: {
-    getType (t) {
+    getType(t) {
       if (this.__form_block_type_[t]) {
         return 'formBlock'
       }
       return 'formRow'
     },
     // 吐出数据
-    commit () {
+    commit() {
       let mod = this.innerModel()
       this.$emit('formChange', mod)
       this.$emit('update:formValues', mod)
@@ -113,11 +121,11 @@ const formUnitBase = Vue.extend({
       this.$set(this.rootComp.formValues, this.name, this.formValues)
     },
     //
-    onChange (val) {
+    onChange(val) {
       // 点击组件带过来的值{isValid，msg，name，value}
       this.updateForm(val)
     },
-    updateForm (val) {
+    updateForm(val) {
       // 缓存带有child的组件name
       if (!this.__cacheParent) {
         this.__cacheParent = {}
@@ -140,7 +148,7 @@ const formUnitBase = Vue.extend({
         this.$set(this.formValues, val.name, prop)
       }
     },
-    mountChild () {
+    mountChild() {
       let obj = this.formModels.rules
       let ts = this
       for (let i in obj) {
@@ -153,13 +161,13 @@ const formUnitBase = Vue.extend({
         }
       }
     },
-    deleteThis () {
-      this.$emit('formDelete', {index: this.index, name: this.name})
+    deleteThis() {
+      this.$emit('formDelete', { index: this.index, name: this.name })
     },
-    onEvent (type, val) {
+    onEvent(type, val) {
       this.$emit('formEvent', type, val)
     },
-    mountErrors () {
+    mountErrors() {
       this.errorBag = []
       this.keys.forEach(i => {
         let err = this.formErrors[i]
@@ -169,7 +177,7 @@ const formUnitBase = Vue.extend({
       })
       return this.errorBag
     },
-    innerModel () {
+    innerModel() {
       this.mountErrors()
 
       let _msg = (this.errorBag[0] && this.errorBag[0].msg) || '表单信息填写不完整'
@@ -183,13 +191,13 @@ const formUnitBase = Vue.extend({
         isValid: this.isValid
       }
     },
-    isEmpty () {
+    isEmpty() {
       let _all = Object.values(this.formValues).filter(item => {
         return (typeof item !== 'boolean' && !item)
       })
       return _all.length === this.keys.length
     },
-    __isValid (err) {
+    __isValid(err) {
       for (let i in err) {
         let item = err[i]
         if (typeof item === 'string') continue
@@ -200,10 +208,10 @@ const formUnitBase = Vue.extend({
       }
       return true
     },
-    getItem (name) {
+    getItem(name) {
       return this.fields[name]
     },
-    validateAll () {
+    validateAll() {
       let fileds = Object.values(this.fields).map(i => i.onValidate())
       return Promise.all(fileds).then(res => {
         let isValid = res.find(i => i === false)
@@ -214,14 +222,14 @@ const formUnitBase = Vue.extend({
         }
       }).catch(e => { return false })
     },
-    resetFormValues () {
+    resetFormValues() {
       this.formValues = {}
     }
   },
   watch: {
     formModels: {
       deep: true,
-      handler (v, o) {
+      handler(v, o) {
         // 判断如果换了formModel 就重置formValues
         let neo = this.__str(Object.keys(v))
         let old = this.__str(Object.keys(o))
@@ -232,7 +240,7 @@ const formUnitBase = Vue.extend({
     },
     formValues: {
       deep: true,
-      handler (v, o) {
+      handler(v, o) {
         let neo = this.__str(v)
         if (this.__oldValue !== neo) {
           this.__oldValue = neo
