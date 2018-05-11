@@ -7,11 +7,13 @@
 
 // 通用unit
 import formUnit from './form-unit'
+import formUnitBase from './form-unit/base'
 import unitMix from './mixin/page-unit-mixin'
 import multiMix from './mixin/page-multi-mixin'
 export {
   formUnit,
+  formUnitBase,
   unitMix,
   multiMix
 }
-export default formUnit
+
