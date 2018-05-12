@@ -23,7 +23,7 @@ onChange: function  用于触发onChange 的emit事件，数据变更时触发�
 // 工具方法集合
 import formMixin from '../../../mixin/tools-mixin'
 export default {
-  data () {
+  data() {
     return {
       innerValue: this.formModel.value, // 只用于内部，用来存储组件最新的值，可以是任何数据类型
       innerRules: this.formModel.rules,
@@ -34,7 +34,7 @@ export default {
     }
   },
   mixins: [formMixin],
-  created () {
+  created() {
     // 挂载到formUnit
     // 挂载到formUnit只是为了便于主动验证及特殊场景需求
     // 不应直接操作写入fields成员的值, 如：
@@ -46,7 +46,7 @@ export default {
   },
   computed: {
     // 是否只读
-    readonly () {
+    readonly() {
       return !!this.formModel.rules.readOnly || !!this.formModel.rules.disabled
     }
   },
@@ -71,21 +71,21 @@ export default {
     // 验证方法 onValidate 根据组件类型有所不同，被组件复写
     formModel: {
       deep: true,
-      handler (v) {
+      handler(v) {
         this.innerValue = v.value
         this.innerRules = v.rules
       }
     },
     innerValue: {
       deep: true,
-      handler (v) {
+      handler(v) {
         this.onValidate()
       }
     }
   },
   methods: {
     // 验证, 只提供基本验证，可以被组件复写
-    onValidate () {
+    onValidate() {
       return new Promise((resolve, reject) => {
         let isValid = !!(this.innerValue && this.innerValue.length)
         this.isValid = isValid
@@ -94,17 +94,22 @@ export default {
         } else {
           reject(false)
         }
-      }).catch(e => {return false})
+      }).catch(e => {
+        return false
+      })
     },
     // 用于向formUnit提交数据更新
-    commit () {
+    commit() {
       let mod = this.innerModel()
       // 如果该组件嵌套在另一个组件里
       if (this.inset) {
-        this.$emit('onChange', mod)
-        this.$emit('formChange', mod)
+        this.$emit('onChange', mod, this.name)
+        this.$emit('formChange', mod, this.name)
       } else {
         this.formUnit = this.formUnit || this.getFormUnit()
+        // 让formUnit知道是谁发出的变更
+        //console.log('currentItem', this.name)
+        this.formUnit.currentItem = this.name
         this.$set(this.formUnit.formValues, this.name, mod.value || this.innerValue || '')
         // 上报formErrors
         if (mod.isValid) {
@@ -115,22 +120,22 @@ export default {
       }
     },
     // 用于上报各种用户交互事件
-    onEvent (type, val) {
+    onEvent(type, val) {
       if (this.inset) {
-        this.$emit('onEvent', val)
+        this.$emit('formEvent', val, this.name)
       } else {
         this.formUnit = this.formUnit || this.getFormUnit()
-        this.formUnit.onEvent(type, val)
+        this.formUnit.onEvent(type, val, this.name)
       }
     },
     // 获取当前所在formUnit
-    getFormUnit () {
+    getFormUnit() {
       let parent = this.$parent
-      for (; ;) {
+      for (;;) {
         if (!parent.formValidator) {
           parent = parent.$parent
           if (!parent.$parent) {
-            throw new Error ('formUnit未注册validator!')
+            throw new Error('formUnit未注册validator!')
           }
         } else {
           return parent
@@ -138,13 +143,13 @@ export default {
       }
       return parent
     },
-    __errorMsg () {
+    __errorMsg() {
       return this.formModel.rules.errorMsg || this.formModel.rules.placeholder || '请填' + this.formModel.rules.label
     },
     // 获取当前表单项的各种状态, 对外暴露
-    innerModel () {
+    innerModel() {
       // 注意： __toValue 是个转换数据的方法，可以按需要在组件里写，如果不需要转，就不要写
-      console.warn(this.name, '__toValue::', this.__toValue)
+      //console.warn(this.name, '__toValue::', this.__toValue)
       return {
         name: this.name,
         value: (typeof this.__toValue === 'function') ? this.__toValue(this.innerValue) : this.innerValue,

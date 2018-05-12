@@ -7,203 +7,205 @@
 <template>
   <div class="web-select-box">
     <div class="root-select-mask" v-if="isReadOnly"></div>
-    <x-address :list="datalist" placeholder="省 / 市 / 县" v-model="innerValue"
-    @on-hide="onHide"
-    @on-change="onChange"
-    ></x-address>
-    <za-input
-      v-if="showInput"
-      @formChange="onInputChange"
-      :inset="true"
-      :formModel="inputModel"
-      :name="name">
+    <x-address :list="datalist" placeholder="省 / 市 / 县" v-model="innerValue" @on-hide="onHide" @on-change="onChange"></x-address>
+    <za-input v-if="showInput" @formEvent="onInputEvent" @formChange="onInputChange" :inset="true" :formModel="inputModel" :name="name">
     </za-input>
   </div>
 </template>
 <script>
-  import { XAddress } from '../../../vux'
-  import zaInput from '../../input/input'
-  import rootSelectMx from '../mixin/select-mixin'
+import { XAddress } from '../../../vux'
+import zaInput from '../../input/input'
+import rootSelectMx from '../mixin/select-mixin'
 
-  export default {
-    name: 'za-address',
-    components: {
-      XAddress,
-      zaInput
-    },
-    mixins: [rootSelectMx],
-    data () {
-      return {
-        innerValue: null,
-        innerErrors: null,
-        originValue: [],
-        originName: [],
-        rawText: '',
-        inputValue: '',
-        inputError: '',
-        inputValid: false,
-        inputModel: {
-          rules: {
-            type: 'za-input',
-            vRules: 'required|min:8',
-            readOnly: true,
-            placeholder: '请输入详细地址'
-          },
-          value: this.formModel.value.detail
+export default {
+  name: 'za-address',
+  components: {
+    XAddress,
+    zaInput
+  },
+  mixins: [rootSelectMx],
+  data() {
+    return {
+      innerValue: null,
+      innerErrors: null,
+      originValue: [],
+      originName: [],
+      rawText: '',
+      inputValue: '',
+      inputError: '',
+      inputValid: false,
+      inputModel: {
+        rules: {
+          type: 'za-input',
+          vRules: 'required|min:8',
+          readOnly: true,
+          placeholder: '请输入详细地址'
         },
-        datalist: []
+        value: this.formModel.value.detail
+      },
+      datalist: []
+    }
+  },
+  props: ['formModel', 'name', 'index'],
+  created() {
+    this.innerValue = this.$value
+  },
+  watch: {
+    innerValue(v) {
+      this.inputModel.rules.readOnly = !(v && v.length)
+      this.onValidate()
+      this.commit()
+    },
+    'formModel.value': {
+      deep: true,
+      handler(v) {
+        this.$value = v
       }
+    }
+  },
+  computed: {
+    showInput() {
+      return this.formModel.rules.showDetail
     },
-    props: ['formModel', 'name', 'index'],
-    created () {
-      this.innerValue = this.$value
+    $value: {
+      get() {
+        let v = this.formModel.value
+        if (typeof v == 'string') {
+          return v.split('/')
+        } else if (!v) {
+          return []
+        }
+        return v
+      },
+      set(val) {
+        let v = val
+        if (typeof v === 'string') {
+          v = v.split('/')
+        } else if (!v) {
+          v = []
+        }
+        this.innerValue = v
+      }
+    }
+  },
+  created() {
+    if (!window.__select_area_data) {
+      let data = require('./area')
+      window.__select_area_data = data.areaData.data
+    }
+    this.datalist = JSON.parse(window.__select_area_data)
+  },
+  methods: {
+    onValidate() {
+      return new Promise((resolve, reject) => {
+        let mod = this.innerModel()
+        this.isValid = mod.isValid
+        if (this.isValid) {
+          resolve(true)
+        } else {
+          reject(false)
+        }
+      }).catch(e => { return false })
     },
-    watch: {
-      innerValue (v) {
-        this.inputModel.rules.readOnly = !(v && v.length)
+    onInputEvent(v) {
+      let mod = this.innerModel()
+      this.onEvent('onInput', {
+        name: this.name,
+        event: null,
+        type: 'change',
+        triggerType: 'onInput',
+        value: mod.value
+      })
+    },
+    onInputChange(v) {
+      this.inputValue = v.value
+      this.inputValid = v.isValid
+      this.inputError = v.msg
+      this.$nextTick(() => {
         this.onValidate()
         this.commit()
-      },
-      'formModel.value': {
-        deep: true,
-        handler (v) {
-          this.$value = v
-        }
-      }
+      })
     },
-    computed: {
-      showInput () {
-        return this.formModel.rules.showDetail
-      },
-      $value: {
-        get () {
-          let v = this.formModel.value
-          if (typeof v == 'string') {
-            return v.split('/')
-          } else if (!v) {
-            return []
-          }
-          return v
-        },
-        set (val) {
-          let v = val
-          if (typeof v === 'string') {
-            v = v.split('/')
-          } else if (!v) {
-            v = []
-          }
-          this.innerValue = v
-        }
+    __errorMsg() {
+      if (this.showInput && !this.inputValid) {
+        return this.inputError
       }
+      return this.innerValue && this.innerValue.length ? null : (this.formModel.rules.placeholder || '请选择省、市、区')
     },
-    created () {
-      if (!window.__select_area_data) {
-        let data = require('./area')
-        window.__select_area_data = data.areaData.data
-      }
-      this.datalist = JSON.parse(window.__select_area_data)
-    },
-    methods: {
-      onValidate () {
-        return new Promise((resolve, reject) => {
-          let mod = this.innerModel()
-          this.isValid = mod.isValid
-          if (this.isValid) {
-            resolve(true)
-          } else {
-            reject(false)
-          }
-        }).catch(e => {return false})
-      },
-      onInputChange (v) {
-        this.inputValue = v.value
-        this.inputValid = v.isValid
-        this.inputError = v.msg
+    onHide(v) {
+      if (!v) { return }
+      let neo = this.__str(this.innerValue)
+      if (neo !== this.__oldValue) {
+        // 必须
+        // vux 不同类型的组件，onHide触发时间不一致
+        // 这里放到下一个Tick，对齐
         this.$nextTick(() => {
-          this.onValidate()
-          this.commit()
-        })
-      },
-      __errorMsg () {
-        if (this.showInput && !this.inputValid) {
-          return this.inputError
-        }
-        return this.innerValue && this.innerValue.length ? null : (this.formModel.rules.placeholder || '请选择省、市、区')
-      },
-      onHide (v) {
-        if (!v) { return }
-        let neo = this.__str(this.innerValue)
-        if (neo !== this.__oldValue) {
-          // 必须
-          // vux 不同类型的组件，onHide触发时间不一致
-          // 这里放到下一个Tick，对齐
-          this.$nextTick(() => {
-            let mod = this.innerModel()
-            this.onEvent('onChange', {
-              name: this.name,
-              event: null,
-              type: 'change',
-              triggerType: 'onHide',
-              value: mod.value
-            })
-            this.__oldValue = neo
+          let mod = this.innerModel()
+          this.onEvent('onHide', {
+            name: this.name,
+            event: null,
+            type: 'change',
+            triggerType: 'onHide',
+            value: mod.value
           })
-        }
-      },
-      innerModel () {
-        let isValid = this.isValid
-        let _address = {
-          entry_province: {
-            value: '',
-            name: ''
-          },
-          entry_city: {
-            value: '',
-            name: ''
-          },
-          entry_district: {
-            value: '',
-            name: ''
-          },
-          detail: ''
-        }
-        // 保存默认地址数据，用来检验数据是否改动过
-        let _$defAddr = this.__str(_address)
-        let _value = this.innerValue || []
-        if (_value.length && this.datalist.length) {
-          let p = this.datalist.find(i => i.value == _value[0])
-          _address.entry_province.name = p ? p.name : ''
-          _address.entry_province.value = _value[0]
-          let c = this.datalist.find(i => i.value == _value[1])
-          _address.entry_city.name = c ? c.name : ''
-          _address.entry_city.value = _value[1]
-          let d = this.datalist.find(i => i.value == _value[2])
-          _address.entry_district.name = d ? d.name : ''
-          _address.entry_district.value = _value[2]
-        }
-        // console.error(this.__str(_value), this.__str(_address))
-        if (this.showInput) {
-          isValid = this.inputValid
-        }
-        if (_$defAddr === this.__str(_address)) {
-          isValid = false
-        }
-        // if not required
-        if (!this.formModel.rules.vRules || this.formModel.rules.vRules.indexOf('required') === -1) {
-          // if not touched
-          isValid = true
-        }
-        // mixins update
-        _address.detail = this.inputValue || ''
-        return {
-          name: this.name,
-          value: this.__clone(_address),
-          msg: this.__errorMsg(),
-          isValid: isValid
-        }
+          this.__oldValue = neo
+        })
+      }
+    },
+    innerModel() {
+      let isValid = this.isValid
+      let _address = {
+        entry_province: {
+          value: '',
+          name: ''
+        },
+        entry_city: {
+          value: '',
+          name: ''
+        },
+        entry_district: {
+          value: '',
+          name: ''
+        },
+        detail: ''
+      }
+      // 保存默认地址数据，用来检验数据是否改动过
+      let _$defAddr = this.__str(_address)
+      let _value = this.innerValue || []
+      if (_value.length && this.datalist.length) {
+        let p = this.datalist.find(i => i.value == _value[0])
+        _address.entry_province.name = p ? p.name : ''
+        _address.entry_province.value = _value[0]
+        let c = this.datalist.find(i => i.value == _value[1])
+        _address.entry_city.name = c ? c.name : ''
+        _address.entry_city.value = _value[1]
+        let d = this.datalist.find(i => i.value == _value[2])
+        _address.entry_district.name = d ? d.name : ''
+        _address.entry_district.value = _value[2]
+      }
+      // console.error(this.__str(_value), this.__str(_address))
+      if (this.showInput) {
+        isValid = this.inputValid
+      }
+      if (_$defAddr === this.__str(_address)) {
+        isValid = false
+      }
+      // if not required
+      if (!this.formModel.rules.vRules || this.formModel.rules.vRules.indexOf('required') === -1) {
+        // if not touched
+        isValid = true
+      }
+      // mixins update
+      _address.detail = this.inputValue || ''
+      return {
+        name: this.name,
+        value: this.__clone(_address),
+        msg: this.__errorMsg(),
+        isValid: isValid
       }
     }
   }
+}
 </script>
 
 <style lang='less'></style>

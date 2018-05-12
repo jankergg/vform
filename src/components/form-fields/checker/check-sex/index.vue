@@ -1,9 +1,9 @@
 <!--
-      descript: 单选组件
-        author: jankergg
-        param: props
-      methods:
-   seledcheck: 用于选择默认值 传入一个索引数即可
+descript: 单选组件
+author: jankergg
+param: props
+methods:
+seledcheck: 用于选择默认值 传入一个索引数即可
 -->
 <template>
   <div class="za-sex">
@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     onClick (v) {
-      this.onCheck()
+      this.onCheck(v)
       this.innerValue = v
     }
   }

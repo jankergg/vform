@@ -43,7 +43,8 @@ const formUnitBase = Vue.extend({
       fields: {},
       filedsNum: 0,
       isValid: false,
-      __oldValue: ''
+      __oldValue: '',
+      currentItem: {}// 当前是哪个节点发生了变更
     }
   },
   mixins: [formMixin],
@@ -113,9 +114,7 @@ const formUnitBase = Vue.extend({
     // 吐出数据
     commit() {
       let mod = this.innerModel()
-      this.$emit('formChange', mod)
-      this.$emit('update:formValues', mod)
-      this.$emit('input', mod)
+      this.$emit('formChange', mod, this.currentItem)
 
       // 挂载到根结点
       this.$set(this.rootComp.formValues, this.name, this.formValues)
@@ -164,8 +163,8 @@ const formUnitBase = Vue.extend({
     deleteThis() {
       this.$emit('formDelete', { index: this.index, name: this.name })
     },
-    onEvent(type, val) {
-      this.$emit('formEvent', type, val)
+    onEvent(type, val, name) {
+      this.$emit('formEvent', type, val, name)
     },
     mountErrors() {
       this.errorBag = []

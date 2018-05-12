@@ -6,34 +6,33 @@
 */
 import Components from './src/components'
 import baseMixin from './src/components/form-fields/mixin/base-mixin'
-const {
-  // formUnit
-  formUnit,
-  // form fields
-  // src/components/form-fields/check
-  zaSex,
-  zaYesno,
-  zaCheckList,
-  zaCheckItem,
-  zaQuestion,
+// formUnit
+const formUnit = Components.formUnit
 
-  // src/components/form-fields/input
-  zaInput,
-  zaInputBtn,
-  zaInputTxt,
-  zaInputCamera,
-  zaTextarea,
+// form fields
+// src/components/form-fields/check
+const zaSex = Components.zaSex
+const zaYesno = Components.zaYesno
+const zaCheckList = Components.zaCheckList
+const zaCheckItem = Components.zaCheckItem
+const zaQuestion = Components.zaQuestion
 
-  // src/components/form-fields/select
-  zaSelect,
-  zaDate,
-  zaAddress,
-  zaAddressFull,
+// src/components/form-fields/input
+const zaInput = Components.zaInput
+const zaInputBtn = Components.zaInputBtn
+const zaInputTxt = Components.zaInputTxt
+const zaInputCamera = Components.zaInputCamera
+const zaTextarea = Components.zaTextarea
 
-  row1Col,
-  row2Col,
-  row3Col
-} = Components
+// src/components/form-fields/select
+const zaSelect = Components.zaSelect
+const zaDate = Components.zaDate
+const zaAddress = Components.zaAddress
+const zaAddressFull = Components.zaAddressFull
+
+const row1Col = Components.row1Col
+const row2Col = Components.row2Col
+const row3Col = Components.row3Col
 
 export {
   baseMixin,

@@ -18,7 +18,7 @@ export default {
   props: {
     value: {
       type: Array,
-      default () {
+      default() {
         return []
       }
     },
@@ -38,7 +38,7 @@ export default {
       default: (val, names) => names
     }
   },
-  created () {
+  created() {
     if (this.currentValue.length && this.rawValue) {
       const parsedVal = name2value(this.currentValue, this.list)
       if (/__/.test(parsedVal)) {
@@ -50,28 +50,30 @@ export default {
     }
   },
   methods: {
-    emitHide (val) {
+    emitHide(val) {
       this.$emit('on-hide', val)
     },
-    getAddressName () {
+    getAddressName() {
       return value2name(this.value, this.list)
     }
   },
-  data () {
+  data() {
     return {
       currentValue: this.value
     }
   },
   computed: {
-    nameValue () {
+    nameValue() {
       return value2name(this.currentValue, this.list)
     }
   },
   watch: {
-    currentValue (val) {
-      this.$emit('input', val)
+    currentValue(val) {
+      this.$nextTick(() => {
+        this.$emit('input', val)
+      })
     },
-    value (val) {
+    value(val) {
       if (val.length && !/\d+/.test(val[0])) {
         const id = name2value(val, this.list).split(' ')
         if (id[0] !== '__' && id[1] !== '__') {

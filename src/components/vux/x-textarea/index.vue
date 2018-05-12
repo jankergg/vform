@@ -1,21 +1,5 @@
 <template>
-  <textarea
-  class="weui-textarea"
-  :autocomplete="autocomplete"
-  :autocapitalize="autocapitalize"
-  :autocorrect="autocorrect"
-  :spellcheck="spellcheck"
-  :placeholder="placeholder"
-  :readonly="readonly"
-  :name="name"
-  :rows="rows"
-  :cols="cols"
-  v-model="currentValue"
-  @focus="$emit('on-focus')"
-  @blur="$emit('on-blur')"
-  :style="textareaStyle"
-  :maxlength="max"
-  ref="textarea"></textarea>
+  <textarea class="weui-textarea" :autocomplete="autocomplete" :autocapitalize="autocapitalize" :autocorrect="autocorrect" :spellcheck="spellcheck" :placeholder="placeholder" :readonly="readonly" :name="name" :rows="rows" :cols="cols" v-model="currentValue" @focus="$emit('on-focus')" @blur="$emit('on-blur')" @input="onEvent" :style="textareaStyle" :maxlength="max" ref="textarea"></textarea>
 </template>
 
 <script>
@@ -23,7 +7,7 @@ import Autosize from 'autosize' // prop.autosize
 
 export default {
   name: 'x-textarea',
-  mounted () {
+  mounted() {
     // prop.autosize
     this.$nextTick(() => {
       if (this.autosize) {
@@ -69,43 +53,45 @@ export default {
     },
     autosize: Boolean // prop.autosize
   },
-  created () {
+  created() {
     this.currentValue = this.value
   },
   watch: {
     // prop.autosize
-    autosize (val) {
+    autosize(val) {
       this.unbindAutosize()
       if (val) {
         this.bindAutosize()
       }
     },
     // prop.autosize
-    value (val) {
+    value(val) {
       this.currentValue = val
     },
-    currentValue (newVal) {
+    currentValue(newVal) {
       if (this.max && newVal && newVal.length > this.max) {
         this.currentValue = newVal.slice(0, this.max)
       }
-      this.$emit('input', this.currentValue)
-      this.$emit('on-change', this.currentValue)
+      this.$nextTick(() => {
+        this.$emit('input', this.currentValue)
+        this.$emit('on-change', this.currentValue)
+      })
     }
   },
-  data () {
+  data() {
     return {
       currentValue: ''
     }
   },
   computed: {
-    count () {
+    count() {
       let len = 0
       if (this.currentValue) {
         len = this.currentValue.replace(/\n/g, 'aa').length
       }
       return len > this.max ? this.max : len
     },
-    textareaStyle () {
+    textareaStyle() {
       if (this.height) {
         return {
           height: `${this.height}px`
@@ -114,16 +100,19 @@ export default {
     }
   },
   methods: {
+    onEvent(v) {
+      this.$emit('on-event', v)
+    },
     // prop.autosize
-    bindAutosize () {
+    bindAutosize() {
       Autosize(this.$refs.textarea)
     },
-    unbindAutosize () {
+    unbindAutosize() {
       Autosize.destroy(this.$refs.textarea)
     }
   },
   // prop.autosize
-  beforeDestroy () {
+  beforeDestroy() {
     this.unbindAutosize()
   }
   // prop.autosize

@@ -28,13 +28,13 @@ export default {
       this.onValidate()
       this.commit()
     },
-    onCheck (v) {
-      let neo = this.__str(this.innerValue)
-      if (neo !== this.__oldValue) {
-        // 必须
-        // vux 不同类型的组件，onHide触发时间不一致
-        // 这里放到下一个Tick，对齐
-        this.$nextTick(() => {
+    onCheck () {
+      this.$nextTick(() => {
+        let neo = this.__str(this.innerValue)
+        if (neo !== this.__oldValue) {
+          // 必须
+          // vux 不同类型的组件，onHide触发时间不一致
+          // 这里放到下一个Tick，对齐
           this.onEvent('onChange', {
             name: this.name,
             event: null,
@@ -42,8 +42,8 @@ export default {
             triggerType: 'onCheck',
             value: this.innerValue
           })
-        })
-      }
+        }
+      })
     },
     onChange (v) {
       let neo = this.__str(v)
