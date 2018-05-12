@@ -1,5 +1,9 @@
 import Vue from 'vue';
-import {formUnit, zaInput, zaSelect} from './';
+import {
+  formUnit,
+  zaInput,
+  zaSelect
+} from '../../../src/components';
 
 describe('formUnit', () => {
   it('正确生成formUnit实例', () => {
