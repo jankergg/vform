@@ -52,11 +52,12 @@ export default {
       display: inline-block;
       border-radius: 10px;
       position: relative;
-      font-size: 85%;
+      font-size: 14px;
+      line-height: 1.2;
       box-sizing: border-box;
       vertical-align: middle;
       margin-left: 10px;
-      padding: 2px 20px;
+      padding: 4px 20px;
       border: 1px solid #ccc;
       &.seled {
         border: none;
@@ -64,9 +65,11 @@ export default {
       }
       &.male.seled {
         background: #91dbfe;
+        border: 1px solid #91dbfe;
       }
       &.famale.seled {
         background: #fb7d8f;
+        border: 1px solid #fb7d8f;
       }
     }
   }

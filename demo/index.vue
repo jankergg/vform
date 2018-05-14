@@ -137,6 +137,7 @@ export default {
       this.formModel2 = nd
     },
     nextStep(){
+      // 获取name为f2的表单
       let fm = this.getForm('f2')
       fm.validateAll().then(res=>{
         if (res) {

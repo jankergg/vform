@@ -51,9 +51,9 @@ export default {
       line-height: 0;
       .za-yesno-item {
         display: inline-block;
-        font-size: 1rem;
+        font-size: 14px;
         line-height: 1.2;
-        padding: .1em .5em;
+        padding: 4px 8px;
       }
       .za-yesno-item.active {
         background: #91dbfe;
