@@ -1,4 +1,4 @@
-import AlertComponent from '../../components/alert'
+import AlertComponent from '../../components/vux/alert'
 import { mergeOptions } from '../../libs/plugin_helper'
 
 let $vm

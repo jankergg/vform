@@ -31,7 +31,7 @@ import * as ValidateRules from '../mixin/extend'
 
 import formRow from '../../layouts/form-row'
 import formBlock from '../../layouts/form-block'
-import { FORM_BLOCK_ITEM } from '../../form-fields'
+import { FORM_BLOCK_ITEM, zaTitle } from '../../form-fields'
 import uuid from '../../../mixin/uuid-mixin'
 const formUnitBase = Vue.extend({
   formType: 'formUnit',
@@ -79,6 +79,14 @@ const formUnitBase = Vue.extend({
       if (!par.formValues) {
         par.formValues = {}
       }
+      if (!par.formErrors) {
+        par.formErrors = {}
+      }
+      if (!par.getForm) {
+        par.getForm = function (name) {
+          return par.$children.find(i => i.name === name)
+        }
+      }
       return par
     },
     // 判断组件属于哪一种类型 inline/block
@@ -106,10 +114,26 @@ const formUnitBase = Vue.extend({
   },
   methods: {
     getType(t) {
+      if (t === 'title' || t === 'za-title') {
+        return 'zaTitle'
+      }
       if (this.__form_block_type_[t]) {
         return 'formBlock'
       }
       return 'formRow'
+    },
+    getError(name) {
+      if (name) {
+        return this.formErrors[name] || null
+      }
+      return Object.values(this.formErrors)[0]
+    },
+    getErrorMsg(name) {
+      let err = this.getError(name)
+      if (err && err.msg !== undefined) {
+        return err.msg
+      }
+      return ''
     },
     // 吐出数据
     commit() {
@@ -118,6 +142,7 @@ const formUnitBase = Vue.extend({
 
       // 挂载到根结点
       this.$set(this.rootComp.formValues, this.name, this.formValues)
+      this.$set(this.rootComp.formErrors, this.name, Object.values(this.formErrors))
     },
     //
     onChange(val) {
@@ -251,7 +276,8 @@ const formUnitBase = Vue.extend({
   },
   components: {
     formRow,
-    formBlock
+    formBlock,
+    zaTitle
   }
 })
 let formValidator = new VeeValidate.Validator()

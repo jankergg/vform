@@ -1,4 +1,10 @@
 export default {
+  title1: {
+    rules: {
+      label: '基本信息',
+      type: 'title'
+    }
+  },
   birthDay: {
     value: '1986-07-02',
     rules: {

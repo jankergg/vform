@@ -9,6 +9,11 @@
 -->
 <template>
   <div class="container">
+    <tab>
+      <tab-item selected @on-item-click="onItemClick">已发货</tab-item>
+      <tab-item @on-item-click="onItemClick">未发货</tab-item>
+      <tab-item @on-item-click="onItemClick">全部订单</tab-item>
+    </tab>
     <form-unit name="f1" :formModels="formModel" @formChange="onChange" @formEvent="onEvent">
       <template slot="cust">
         <div>
@@ -18,34 +23,42 @@
     </form-unit>
     <form-unit name="f2" :formModels="formModel2" @formChange="onChange" @formEvent="onEvent">
     </form-unit>
-    <button @click="data1"> set data 1</button> <br>
+    <button @click="data1"> set data 1</button>
     <button @click="data2"> set data 2</button>
+    <button @click="nextStep"> next step </button>
   </div>
 </template>
 
 <script>
 // 导入formUnit
+import Vue from 'vue'
 import { formUnit } from '../src/components/form-units'
+import { Tab, TabItem } from '../src/components/vux'
+import {AlertPlugin, ConfirmPlugin, ToastPlugin} from '../'
 // 导入配置文件
 import modelData from './formModel'
 // 导入自定义组件
 import testCust from './test-custom'
-
+Vue.use(AlertPlugin)
+Vue.use(ConfirmPlugin)
+Vue.use(ToastPlugin)
 export default {
   name: 'test-unit',
   data() {
     return {
       formModel: {},
-      formModel2: {}
+      formModel2: modelData
     }
   },
   created() {
     window.test = this
+    window.ap = AlertPlugin
   },
   methods: {
     onEvent(t, v) {
       console.warn(t, 'trigger: onEvent', v)
     },
+    onItemClick(){},
     onChange(v) {
       console.warn('trigger: formChange::', v)
     },
@@ -122,11 +135,40 @@ export default {
         }
       }
       this.formModel2 = nd
+    },
+    nextStep(){
+      let fm = this.getForm('f2')
+      fm.validateAll().then(res=>{
+        if (res) {
+          alert('通过')
+        } else {
+          alert(fm.getErrorMsg())
+        }
+      })
     }
   },
   components: {
     formUnit,
-    testCust
+    testCust,
+    Tab, TabItem
   }
 }
 </script>
+<style lang='less' scoped>
+  @import '../src/styles/variable.less';
+  .container {
+    padding:5px;
+    font-size: 12px;
+    button {
+      padding: 8px;
+      text-align:center;
+      width:150px;
+      display:block;
+      box-sizing: border-box;
+      border: 1px solid yellowgreen;
+      background: lightseagreen;
+      margin: 1rem auto 0;
+    }
+  }
+</style>
+

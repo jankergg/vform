@@ -31,9 +31,7 @@
     </div>
     <div class="weui-cells weui-cells_form">
       <template v-for="(model, key, index) in formModels">
-        <slot v-if="$slots[key]" :name="key" :index="index" :formModel="model">
-
-        </slot>
+        <slot v-if="$slots[key]" :name="key" :index="index" :formModel="model"></slot>
         <component
         v-else
         :is="getType(model.rules.type)"

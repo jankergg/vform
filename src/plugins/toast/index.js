@@ -1,4 +1,4 @@
-import ToastComponent from '../../components/toast'
+import ToastComponent from '../../components/vux/toast'
 import { mergeOptions } from '../../libs/plugin_helper'
 
 let $vm

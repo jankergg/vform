@@ -1,4 +1,4 @@
-import ConfirmComponent from '../../components/confirm'
+import ConfirmComponent from '../../components/vux/confirm'
 import { mergeOptions } from '../../libs/plugin_helper'
 
 let $vm
