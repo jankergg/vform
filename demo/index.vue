@@ -34,7 +34,7 @@
 import Vue from 'vue'
 import { formUnit } from '../src/components/form-units'
 import { Tab, TabItem } from '../src/components/vux'
-import {AlertPlugin, ConfirmPlugin, ToastPlugin} from '../'
+import {AlertPlugin, ConfirmPlugin, ToastPlugin, LoadingPlugin} from '../'
 // 导入配置文件
 import modelData from './formModel'
 // 导入自定义组件
@@ -42,6 +42,8 @@ import testCust from './test-custom'
 Vue.use(AlertPlugin)
 Vue.use(ConfirmPlugin)
 Vue.use(ToastPlugin)
+Vue.use(LoadingPlugin)
+
 export default {
   name: 'test-unit',
   data() {

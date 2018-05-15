@@ -2,49 +2,54 @@
 * @Author: jankergg
 * @Date:   2018-01-23 17:24:29
 * @Last Modified by:   jankergg
-* @Last Modified time: 2018-05-14 19:21:20
+* @Last Modified time: 2018-05-15 19:38:13
 */
 import Components from './src/components'
 import baseMixin from './src/components/form-fields/mixin/base-mixin'
 import AlertPlugin from './src/plugins/alert/index.js'
 import ConfirmPlugin from './src/plugins/confirm/index.js'
 import ToastPlugin from './src/plugins/toast/index.js'
-import {Tab, TabItem} from './src/components/vux'
+import LoadingPlugin from './src/plugins/loading/index.js'
+import {Tab, TabItem, Loading} from './src/components/vux'
 
-// formUnit
-const formUnit = Components.formUnit
+const {
+  // formUnit
+  formUnit,
+  // form fields
+  // src/components/form-fields/check
+  zaSex,
+  zaYesno,
+  zaCheckList,
+  zaCheckItem,
+  zaQuestion,
 
-// form fields
-// src/components/form-fields/check
-const zaSex = Components.zaSex
-const zaYesno = Components.zaYesno
-const zaCheckList = Components.zaCheckList
-const zaCheckItem = Components.zaCheckItem
-const zaQuestion = Components.zaQuestion
+  // src/components/form-fields/input
+  zaInput,
+  zaInputBtn,
+  zaInputTxt,
+  zaInputCamera,
+  zaTextarea,
 
-// src/components/form-fields/input
-const zaInput = Components.zaInput
-const zaInputBtn = Components.zaInputBtn
-const zaInputTxt = Components.zaInputTxt
-const zaInputCamera = Components.zaInputCamera
-const zaTextarea = Components.zaTextarea
+  // src/components/form-fields/select
+  zaSelect,
+  zaDate,
+  zaAddress,
+  zaAddressFull,
 
-// src/components/form-fields/select
-const zaSelect = Components.zaSelect
-const zaDate = Components.zaDate
-const zaAddress = Components.zaAddress
-const zaAddressFull = Components.zaAddressFull
-
-const row1Col = Components.row1Col
-const row2Col = Components.row2Col
-const row3Col = Components.row3Col
+  row1Col,
+  row2Col,
+  row3Col
+} = Components
 
 export {
+  LoadingPlugin,
   Tab, TabItem,
   AlertPlugin,
   ConfirmPlugin,
   ToastPlugin,
   baseMixin,
+
+  // components
   formUnit,
   zaSex,
   zaYesno,
