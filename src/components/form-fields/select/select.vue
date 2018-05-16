@@ -55,6 +55,9 @@
             if (!Array.isArray(v.options) || (v.options.length && !Array.isArray(v.options[0]))) {
               throw new Error('rules.options 应该为二维数组')
             }
+            if (typeof v.options[0][0] === 'object' && !v.showName) {
+              console.error('需要在rules里添加showName:true')
+            }
           }
         }
       }

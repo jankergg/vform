@@ -5,6 +5,19 @@ export default {
       type: 'title'
     }
   },
+  income: {
+    value: '',
+    rules: {
+      label: 'Income',
+      type: 'za-input',
+      vRules: 'required|min:1|max:8',
+      placeholder: '请输入',
+      errorMsg: '请输入如何看待寿险营销',
+      extra: {
+        text: '万元'
+      }
+    }
+  },
   birthDay: {
     value: '1986-07-02',
     rules: {
@@ -50,7 +63,7 @@ export default {
     rules: {
       label: 'bankCard',
       type: 'za-input',
-      vRules: 'required|min:18|max:18',
+      vRules: 'required|bankcard',
       placeholder: '请输入',
       errorMsg: '请输入如何看待寿险营销'
     }

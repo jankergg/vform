@@ -10,7 +10,8 @@
         }
 -->
 <template>
-  <input
+  <div :class="{'weui-input_fix': extraClass}">
+    <input
     class="weui-input"
     @keyup="eventHandler($event,'keyup')"
     @input="eventHandler($event,'input')"
@@ -24,11 +25,33 @@
     :class="{'weui-cell_warn': !isValid}"
     :readonly="formModel.rules.readOnly"
     :disabled="formModel.rules.disabled" />
+    <div class="input-extra" v-if="formModel.rules.extra">
+      <slot></slot>
+      <div v-if="formModel.rules.extra.text" :class="formModel.rules.extra.class">{{formModel.rules.extra.text}}</div>
+      <button v-if="formModel.rules.extra.btn" :class="formModel.rules.extra.class">{{formModel.rules.extra.btn}}</button>
+    </div>
+  </div>
 </template>
 <script>
   import formMixin from './mixin/input-mixin'
   export default {
     name: 'za-input',
-    mixins: [formMixin]
+    mixins: [formMixin],
+    computed: {
+      extraClass () {
+        return this.formModel.rules.extra
+      }
+    }
   }
 </script>
+<style lang='less' scoped>
+  .weui-input_fix{
+    display:flex;
+    .weui-input{
+      flex: 1;
+    }
+    .input-extra{
+      width:2.5em;
+    }
+  }
+</style>

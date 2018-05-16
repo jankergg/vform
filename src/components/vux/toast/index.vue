@@ -23,7 +23,7 @@ export default {
     },
     type: {
       type: String,
-      default: 'success'
+      default: 'text'
     },
     transition: String,
     width: {
