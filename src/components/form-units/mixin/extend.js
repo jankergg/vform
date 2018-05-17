@@ -2,24 +2,22 @@
 * @Author: jankergg
 * @Date:   2018-02-02 15:58:39
 * @Last Modified by:   jankergg
-* @Last Modified time: 2018-05-17 17:04:53
+* @Last Modified time: 2018-05-17 17:24:23
 */
 const msgFormatError = '格式错误'
 const usernameError = '请重新录入姓名，只能为中文/ 大写英文字母/半角中文点号'
 const usernameLengthError = '请重新录入姓名，字符范围为6~120个字符'
-// 信用卡 [0-9]{13,16}
-// 银联卡 ^62[0-5]\d{13,16}$
-// Visa: ^4[0-9]{12}(?:[0-9]{3})?$
-// 万事达：^5[1-5][0-9]{14}$
-// QQ号码： [1-9][0-9]{4,14}
+// 信用卡 [0-9]{13,16} 银联卡 ^62[0-5]\d{13,16}$ Visa: ^4[0-9]{12}(?:[0-9]{3})?$
+// 万事达：^5[1-5][0-9]{14}$ QQ号码： [1-9][0-9]{4,14}
 // 手机号码：^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$
-// 身份证：^([0-9]){7,18}(x|X)?$
-// 密码：^[a-zA-Z]\w{5,17}$ 字母开头，长度在6~18之间，只能包含字母、数字和下划线
+// 身份证：^([0-9]){7,18}(x|X)?$ 密码：^[a-zA-Z]\w{5,17}$ 字母开头，长度在6~18之间，只能包含字母、数字和下划线
 // 强密码：^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,10}$ 包含大小写字母和数字的组合，不能使用特殊字符，长度在8-10之间
 // 7个汉字或14个字符：^[\u4e00-\u9fa5]{1,7}$|^[\dA-Za-z_]{1,14}$
 
 let trimStr = function (str) {
-  return str ? str.replace(/(^\s*)|(\s*$)/g, '') : ''
+  return str
+    ? str.replace(/(^\s*)|(\s*$)/g, '')
+    : ''
 }
 export const mobile = {
   messages: {
@@ -50,8 +48,7 @@ export const isbirthday = {
     var date = new Date()
     var startDate = new Date(value)
     var newDate = date.getTime() - startDate.getTime()
-    // 向下取整  例如 10岁 20天 会计算成 10岁
-    // 如果要向上取整 计算成11岁，把floor替换成 ceil
+    // 向下取整  例如 10岁 20天 会计算成 10岁 如果要向上取整 计算成11岁，把floor替换成 ceil
     var age = Math.floor(newDate / 1000 / 60 / 60 / 24 / 365)
     if (age < 16) {
       ret = false
@@ -70,24 +67,16 @@ export const ischeckbenefit = {
   }
 }
 
-// 代理人告知 文本框
-// export const isinput = {
-//   messages: {
-//     cn: (field, args) => '请详述与被保险人关系'
-//   },
-//   validate: (value, args) => {
-//     return trimStr(value).length > 0
-//   }
-// }
-
-// Validator.extend('ischeckinput', isinput)
+// 代理人告知 文本框 export const isinput = {   messages: {     cn: (field, args) =>
+// '请详述与被保险人关系'   },   validate: (value, args) => {     return
+// trimStr(value).length > 0   } } Validator.extend('ischeckinput', isinput)
 
 export const maxnum = {
   messages: {
     cn: (field, args) => '不得大于' + args
   },
   validate: (value, args) => {
-    return value <= args
+    return parseFloat(value) <= parseFloat(args[0])
   }
 }
 export const minnum = {
@@ -95,7 +84,7 @@ export const minnum = {
     cn: (field, args) => '不得小于' + args
   },
   validate: (value, args) => {
-    return value >= args
+    return parseFloat(value) >= parseFloat(args[0])
   }
 }
 export const phonenum = {
@@ -120,7 +109,7 @@ export const acrossline = {
     const telOrPhone = /^0/.test(trimStr(value))
     if (telOrPhone) {
       return /^\d{3,4}-\d{7,8}$/.test(value)
-    // return trimStr(value).indexOf('-') == 3 || trimStr(value).indexOf('-') == 4
+      // return trimStr(value).indexOf('-') == 3 || trimStr(value).indexOf('-') == 4
     } else {
       return trimStr(value).length === 11 && /^1[345789]\d{9}$/.test(value)
     }
@@ -139,10 +128,39 @@ export const idcard = {
       return ret
     }
 
-    //  校验位按照ISO 7064:1983.MOD 11-2的规定生成，X可以认为是数字10。
-    //  下面分别分析出生日期和校验位
-    let arrInt = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2]
-    let arrCh = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2']
+    //  校验位按照ISO 7064:1983.MOD 11-2的规定生成，X可以认为是数字10。  下面分别分析出生日期和校验位
+    let arrInt = [
+      7,
+      9,
+      10,
+      5,
+      8,
+      4,
+      2,
+      1,
+      6,
+      3,
+      7,
+      9,
+      10,
+      5,
+      8,
+      4,
+      2
+    ]
+    let arrCh = [
+      '1',
+      '0',
+      'X',
+      '9',
+      '8',
+      '7',
+      '6',
+      '5',
+      '4',
+      '3',
+      '2'
+    ]
     let nTemp = 0
     let i = null
     let len = num.length
@@ -155,8 +173,7 @@ export const idcard = {
       //  检查出生日期是否正确
       dtmBirth = new Date('19' + arrSplit[2] + '/' + arrSplit[3] + '/' + arrSplit[4])
       if (dtmBirth != 'Invalid Date') {
-        //  将15位身份证转成18位
-        //  校验位按照ISO 7064:1983.MOD 11-2的规定生成，X可以认为是数字10。
+        //  将15位身份证转成18位  校验位按照ISO 7064:1983.MOD 11-2的规定生成，X可以认为是数字10。
         num = num.substr(0, 6) + '19' + num.substr(6, num.length - 6)
         for (i = 0; i < 17; i++) {
           nTemp += num.substr(i, 1) * arrInt[i]
@@ -170,8 +187,7 @@ export const idcard = {
       // 检查出生日期是否正确
       dtmBirth = new Date(arrSplit[2] + '/' + arrSplit[3] + '/' + arrSplit[4])
       if (dtmBirth != 'Invalid Date') {
-        // 检验18位身份证的校验码是否正确。
-        // 校验位按照ISO 7064:1983.MOD 11-2的规定生成，X可以认为是数字10。
+        // 检验18位身份证的校验码是否正确。 校验位按照ISO 7064:1983.MOD 11-2的规定生成，X可以认为是数字10。
         var valnum
         for (i = 0; i < 17; i++) {
           nTemp += num.substr(i, 1) * arrInt[i]
