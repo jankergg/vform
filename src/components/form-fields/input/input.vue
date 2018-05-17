@@ -50,8 +50,5 @@
     .weui-input{
       flex: 1;
     }
-    .input-extra{
-      width:2.5em;
-    }
   }
 </style>
