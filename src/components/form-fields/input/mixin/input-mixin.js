@@ -2,7 +2,7 @@
 /* @Description: input 类型通用mixin
 * @Date:   2017-09-13 15:41:02
 * @Last Modified by:   jankergg
-* @Last Modified time: 2018-04-26 15:26:04
+* @Last Modified time: 2018-05-17 16:53:44
 */
 import base from '../../mixin/base-mixin'
 
@@ -84,9 +84,10 @@ export default {
     e_focus (e) {
     },
     __errorMsg () {
+      let label = this.formModel.rules.label || ''
       let _msg = this.validator.errorBag.first(this.name)
       if (_msg !== this.name) {
-        return _msg
+        return label + _msg
       }
       return this.formModel.rules.errorMsg || this.formModel.rules.placeholder
     },

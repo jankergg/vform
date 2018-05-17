@@ -2,11 +2,11 @@
 * @Author: jankergg
 * @Date:   2018-02-02 15:58:39
 * @Last Modified by:   jankergg
-* @Last Modified time: 2018-02-02 17:27:17
+* @Last Modified time: 2018-05-17 17:04:53
 */
 const msgFormatError = '格式错误'
-const usernameError = "请重新录入姓名，只能为中文/ 大写英文字母/半角中文点号"
-const usernameLengthError = "请重新录入姓名，字符范围为6~120个字符"
+const usernameError = '请重新录入姓名，只能为中文/ 大写英文字母/半角中文点号'
+const usernameLengthError = '请重新录入姓名，字符范围为6~120个字符'
 // 信用卡 [0-9]{13,16}
 // 银联卡 ^62[0-5]\d{13,16}$
 // Visa: ^4[0-9]{12}(?:[0-9]{3})?$
@@ -19,7 +19,7 @@ const usernameLengthError = "请重新录入姓名，字符范围为6~120个字�
 // 7个汉字或14个字符：^[\u4e00-\u9fa5]{1,7}$|^[\dA-Za-z_]{1,14}$
 
 let trimStr = function (str) {
-  return str ? str.replace(/(^\s*)|(\s*$)/g, "") : ''
+  return str ? str.replace(/(^\s*)|(\s*$)/g, '') : ''
 }
 export const mobile = {
   messages: {
@@ -46,7 +46,7 @@ export const isbirthday = {
   },
   validate: (value, args) => {
     let ret
-     // 获得今天的时间
+    // 获得今天的时间
     var date = new Date()
     var startDate = new Date(value)
     var newDate = date.getTime() - startDate.getTime()
@@ -82,6 +82,22 @@ export const ischeckbenefit = {
 
 // Validator.extend('ischeckinput', isinput)
 
+export const maxnum = {
+  messages: {
+    cn: (field, args) => '不得大于' + args
+  },
+  validate: (value, args) => {
+    return value <= args
+  }
+}
+export const minnum = {
+  messages: {
+    cn: (field, args) => '不得小于' + args
+  },
+  validate: (value, args) => {
+    return value >= args
+  }
+}
 export const phonenum = {
   messages: {
     cn: (field, args) => field + '电话输入有误'
@@ -104,7 +120,7 @@ export const acrossline = {
     const telOrPhone = /^0/.test(trimStr(value))
     if (telOrPhone) {
       return /^\d{3,4}-\d{7,8}$/.test(value)
-      // return trimStr(value).indexOf('-') == 3 || trimStr(value).indexOf('-') == 4
+    // return trimStr(value).indexOf('-') == 3 || trimStr(value).indexOf('-') == 4
     } else {
       return trimStr(value).length === 11 && /^1[345789]\d{9}$/.test(value)
     }
@@ -152,7 +168,7 @@ export const idcard = {
       re = new RegExp(/^(\d{6})(\d{4})(\d{2})(\d{2})(\d{3})([0-9]|X)$/i)
       arrSplit = num.match(re)
       // 检查出生日期是否正确
-      dtmBirth = new Date(arrSplit[2] + "/" + arrSplit[3] + "/" + arrSplit[4])
+      dtmBirth = new Date(arrSplit[2] + '/' + arrSplit[3] + '/' + arrSplit[4])
       if (dtmBirth != 'Invalid Date') {
         // 检验18位身份证的校验码是否正确。
         // 校验位按照ISO 7064:1983.MOD 11-2的规定生成，X可以认为是数字10。
@@ -176,7 +192,7 @@ export const bankcard = {
   },
   validate: (value, args) => {
     // return /^\d{16}|\d{19}$/.demo(trimStr(value))
-    return /^([1-9]{1})(\d{15}|\d{18})$/.test((value).replace(/\s/g, ""))
+    return /^([1-9]{1})(\d{15}|\d{18})$/.test((value).replace(/\s/g, ''))
   }
 }
 
@@ -244,7 +260,7 @@ export const username = {
 // 验证名字英文和我中文不能同时存在
 export const checkUser = {
   messages: {
-    cn: (field, args) => "姓名不允许英文和汉字同时录入"
+    cn: (field, args) => '姓名不允许英文和汉字同时录入'
   },
   validate: (value, args) => {
     return /^[A-Za-z\s]+$|^[\u4e00-\u9fa5]+$/.test(trimStr(value))

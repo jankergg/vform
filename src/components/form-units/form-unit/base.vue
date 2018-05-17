@@ -33,6 +33,7 @@ import formRow from '../../layouts/form-row'
 import formBlock from '../../layouts/form-block'
 import { FORM_BLOCK_ITEM, zaTitle } from '../../form-fields'
 import uuid from '../../../mixin/uuid-mixin'
+import zhcn from '../../../libs/zh-CN'
 const formUnitBase = Vue.extend({
   formType: 'formUnit',
   data() {
@@ -126,7 +127,12 @@ const formUnitBase = Vue.extend({
       if (name) {
         return this.formErrors[name] || null
       }
-      return Object.values(this.formErrors)[0]
+      for (let i in this.formErrors) {
+        if (this.formErrors.hasOwnProperty(i)) {
+          return this.formErrors[i]
+        }
+      }
+      return null
     },
     getErrorMsg(name) {
       let err = this.getError(name)
@@ -134,6 +140,9 @@ const formUnitBase = Vue.extend({
         return err.msg
       }
       return ''
+    },
+    getValidateRules() {
+      return Object.keys(this.formValidator.dictionary.dictionary.cn.messages)
     },
     // 吐出数据
     commit() {
@@ -280,11 +289,30 @@ const formUnitBase = Vue.extend({
     zaTitle
   }
 })
+
+// 注册语言包及vee-validate初始化
+VeeValidate.install(Vue, {
+  errorBagName: 'vee-errors',
+  fieldsBagName: 'vee-fileds',
+  delay: 0.5,
+  locale: 'cn',
+  messages: null,
+  strict: true,
+  dictionary: {
+    cn: {
+      messages: zhcn
+    }
+  }
+})
 let formValidator = new VeeValidate.Validator()
 // 注册验证规则
 for (let i in ValidateRules) {
   if (ValidateRules[i].messages && ValidateRules[i].validate) {
-    formValidator.extend(i, ValidateRules[i])
+    try {
+      formValidator.extend(i, ValidateRules[i])
+    } catch (e) {
+      console.log(e)
+    }
   }
 }
 // 注册数据勾子

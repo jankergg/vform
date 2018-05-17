@@ -17,6 +17,7 @@ const {
   formUnit,
   // form fields
   // src/components/form-fields/check
+  zaTitle,
   zaSex,
   zaYesno,
   zaCheckList,
@@ -51,6 +52,7 @@ export {
 
   // components
   formUnit,
+  zaTitle,
   zaSex,
   zaYesno,
   zaCheckList,

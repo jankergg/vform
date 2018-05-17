@@ -4,14 +4,18 @@
         param: props
 -->
 <template>
-  <div class="form-title">
-    <div class="msg">{{formModel.rules.label}}</div>
+  <div class="form-title" :class="className">
+    <div class="msg">
+      <slot>
+        {{formModel && formModel.rules.label}}
+      </slot>
+    </div>
   </div>
 </template>
 <script>
   export default {
     name: 'za-title',
-    props: ['formModel', 'showExtra', 'name']
+    props: ['formModel', 'showExtra', 'name', 'className']
   }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->

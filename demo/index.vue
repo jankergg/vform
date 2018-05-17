@@ -14,6 +14,7 @@
       <tab-item @on-item-click="onItemClick">未发货</tab-item>
       <tab-item @on-item-click="onItemClick">全部订单</tab-item>
     </tab>
+    <za-title :titleClass="tc">这个是表单标题</za-title>
     <form-unit name="f1" :formModels="formModel" @formChange="onChange" @formEvent="onEvent">
       <template slot="cust">
         <div>
@@ -32,9 +33,9 @@
 <script>
 // 导入formUnit
 import Vue from 'vue'
-import { formUnit } from '../src/components/form-units'
+import { formUnit} from '../src/components/form-units'
 import { Tab, TabItem } from '../src/components/vux'
-import {AlertPlugin, ConfirmPlugin, ToastPlugin, LoadingPlugin} from '../'
+import {AlertPlugin, ConfirmPlugin, ToastPlugin, LoadingPlugin, zaTitle} from '../'
 // 导入配置文件
 import modelData from './formModel'
 // 导入自定义组件
@@ -49,7 +50,8 @@ export default {
   data() {
     return {
       formModel: {},
-      formModel2: modelData
+      formModel2: modelData,
+      tc: 'some-title-class'
     }
   },
   created() {
@@ -153,7 +155,8 @@ export default {
   components: {
     formUnit,
     testCust,
-    Tab, TabItem
+    Tab, TabItem,
+    zaTitle
   }
 }
 </script>

@@ -52,12 +52,11 @@ import formUnitBase from './base'
 export default formUnitBase.extend({
   name: 'form-unit',
   created () {
-    // debug only TODO: remove this
-    window.fu = this
-    // 注册验证规则
+    this.$emit('onInit', this)
+    // 注册扩展的验证规则
     for (let i in this.extends) {
       if (this.extends[i].messages && this.extends[i].validate) {
-        this.formValidator.extend(i, this.extends[i])
+        try{ this.formValidator.extend(i, this.extends[i]) } catch(e) { console.log(e) }
       }
     }
   }
