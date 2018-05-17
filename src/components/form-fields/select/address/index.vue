@@ -80,7 +80,6 @@ export default {
       let data = require('./area')
       window.__select_area_data = data.areaData.data
     }
-    window.addr = this
     this.datalist = JSON.parse(window.__select_area_data)
     this.innerValue = this.$innerValue
   },
