@@ -18,6 +18,23 @@ export default {
       }
     }
   },
+  address: {
+    value: {
+      "province": "110000",
+      "provinceDesc": "北京市",
+      "city": "110100",
+      "cityDesc": "北京市",
+      "district": "110101",
+      "districtDesc": "东城区",
+      "detail": "圆明园路真光大楼"
+    },
+    rules: {
+      label: 'Address',
+      type: 'za-address',
+      vRules: 'required',
+      errorMsg: '请输入如何看待寿险营销'
+    }
+  },
   birthDay: {
     value: '1986-07-02',
     rules: {

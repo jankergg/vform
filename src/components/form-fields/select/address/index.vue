@@ -26,8 +26,8 @@ export default {
   mixins: [rootSelectMx],
   data() {
     return {
-      innerValue: null,
       innerErrors: null,
+      innerValue: [],
       originValue: [],
       originName: [],
       rawText: '',
@@ -47,45 +47,32 @@ export default {
     }
   },
   props: ['formModel', 'name', 'index'],
-  created() {
-    this.innerValue = this.$value
-  },
   watch: {
     innerValue(v) {
       this.inputModel.rules.readOnly = !(v && v.length)
       this.onValidate()
       this.commit()
-    },
-    'formModel.value': {
-      deep: true,
-      handler(v) {
-        this.$value = v
-      }
     }
   },
   computed: {
     showInput() {
       return this.formModel.rules.showDetail
     },
-    $value: {
-      get() {
-        let v = this.formModel.value
-        if (typeof v == 'string') {
-          return v.split('/')
-        } else if (!v) {
-          return []
-        }
-        return v
-      },
-      set(val) {
-        let v = val
-        if (typeof v === 'string') {
-          v = v.split('/')
-        } else if (!v) {
-          v = []
-        }
-        this.innerValue = v
+    $innerValue(){
+      let v = this.formModel.value
+      if (v.province && v.city && v.district){
+        return [v.province, v.city, v.district]
       }
+      console.warn('address组件初始value值设置不正确请参考 ：', {
+        "province": "110000",
+          "provinceDesc": "北京市",
+          "city": "110100",
+          "cityDesc": "北京市",
+          "district": "110101",
+          "districtDesc": "东城区",
+          "detail": "圆明园路真光大楼"
+      })
+      return []
     }
   },
   created() {
@@ -93,7 +80,9 @@ export default {
       let data = require('./area')
       window.__select_area_data = data.areaData.data
     }
+    window.addr = this
     this.datalist = JSON.parse(window.__select_area_data)
+    this.innerValue = this.$innerValue
   },
   methods: {
     onValidate() {
@@ -155,33 +144,27 @@ export default {
     innerModel() {
       let isValid = this.isValid
       let _address = {
-        entry_province: {
-          value: '',
-          name: ''
-        },
-        entry_city: {
-          value: '',
-          name: ''
-        },
-        entry_district: {
-          value: '',
-          name: ''
-        },
-        detail: ''
+        "province": "",
+        "provinceDesc": "",
+        "city": "",
+        "cityDesc": "",
+        "district": "",
+        "districtDesc": "",
+        "detail": ""
       }
       // 保存默认地址数据，用来检验数据是否改动过
       let _$defAddr = this.__str(_address)
       let _value = this.innerValue || []
       if (_value.length && this.datalist.length) {
         let p = this.datalist.find(i => i.value == _value[0])
-        _address.entry_province.name = p ? p.name : ''
-        _address.entry_province.value = _value[0]
+        _address.provinceDesc = p ? p.name : ''
+        _address.province = _value[0]
         let c = this.datalist.find(i => i.value == _value[1])
-        _address.entry_city.name = c ? c.name : ''
-        _address.entry_city.value = _value[1]
+        _address.cityDesc = c ? c.name : ''
+        _address.city = _value[1]
         let d = this.datalist.find(i => i.value == _value[2])
-        _address.entry_district.name = d ? d.name : ''
-        _address.entry_district.value = _value[2]
+        _address.districtDesc = d ? d.name : ''
+        _address.district = _value[2]
       }
       // console.error(this.__str(_value), this.__str(_address))
       if (this.showInput) {

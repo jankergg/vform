@@ -141,7 +141,6 @@ export default {
           return parent
         }
       }
-      return parent
     },
     __errorMsg() {
       return this.formModel.rules.errorMsg || this.formModel.rules.placeholder || '请选择' + this.formModel.rules.label
