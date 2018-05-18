@@ -60,8 +60,11 @@ export default {
     },
     $innerValue(){
       let v = this.formModel.value
-      if (v.province && v.city && v.district){
-        return [v.province, v.city, v.district]
+      if (v.province !==undefined && v.city !==undefined  && v.district !==undefined ){
+        if (v.province && v.city && v.district){
+          return [v.province, v.city, v.district]
+        }
+        return []
       }
       console.warn('address组件初始value值设置不正确请参考 ：', {
         "province": "110000",
@@ -115,10 +118,11 @@ export default {
       })
     },
     __errorMsg() {
+      let _msg = this.innerValue && this.innerValue.length ? null : (this.formModel.rules.placeholder || '请选择省、市、区')
       if (this.showInput && !this.inputValid) {
-        return this.inputError
+        return _msg || this.inputError
       }
-      return this.innerValue && this.innerValue.length ? null : (this.formModel.rules.placeholder || '请选择省、市、区')
+      return _msg
     },
     onHide(v) {
       if (!v) { return }
@@ -141,7 +145,6 @@ export default {
       }
     },
     innerModel() {
-      let isValid = this.isValid
       let _address = {
         "province": "",
         "provinceDesc": "",
@@ -165,25 +168,33 @@ export default {
         _address.districtDesc = d ? d.name : ''
         _address.district = _value[2]
       }
-      // console.error(this.__str(_value), this.__str(_address))
-      if (this.showInput) {
-        isValid = this.inputValid
-      }
-      if (_$defAddr === this.__str(_address)) {
-        isValid = false
-      }
-      // if not required
-      if (!this.formModel.rules.vRules || this.formModel.rules.vRules.indexOf('required') === -1) {
-        // if not touched
-        isValid = true
-      }
-      // mixins update
       _address.detail = this.inputValue || ''
+      // 判断地址是否填写
+      function isFilled(address, scope){
+        for (let i in address) {
+          if (address.hasOwnProperty(i)) {
+            if (address[i] === '' && i!=='detail'){
+              return false
+            }
+          }
+        }
+        if (scope.showInput){
+          return scope.inputValid
+        }
+        return true
+      }
+      this.isValid = isFilled(_address, this)
+      // if not required
+      if (!this.formModel.rules.vRules || (this.formModel.rules.vRules.indexOf('required') === -1)) {
+        // if not touched
+        this.isValid = true
+      }
+      // return value
       return {
         name: this.name,
-        value: this.__clone(_address),
+        value: _address,
         msg: this.__errorMsg(),
-        isValid: isValid
+        isValid: this.isValid
       }
     }
   }

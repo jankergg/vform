@@ -60,11 +60,11 @@ export default {
   },
   methods: {
     onEvent(t, v) {
-      console.warn(t, 'trigger: onEvent', v)
+      // console.warn(t, 'trigger: onEvent', v)
     },
     onItemClick(){},
     onChange(v) {
-      console.warn('trigger: formChange::', v)
+      // console.warn('trigger: formChange::', v)
     },
     data1() {
       let nd = this.$children[0].__clone(modelData)
@@ -144,7 +144,8 @@ export default {
       // 获取name为f2的表单
       let fm = this.getForm('f2')
       fm.validateAll().then(res=>{
-        if (res) {
+        console.log('resssssssssssssssssssss:', res)
+        if (res===true) {
           alert('通过')
         } else {
           alert(fm.getErrorMsg())

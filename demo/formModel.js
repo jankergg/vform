@@ -20,18 +20,19 @@ export default {
   },
   address: {
     value: {
-      "province": "110000",
-      "provinceDesc": "北京市",
-      "city": "110100",
-      "cityDesc": "北京市",
-      "district": "110101",
-      "districtDesc": "东城区",
-      "detail": "圆明园路真光大楼"
+      "province": "",
+      "provinceDesc": "",
+      "city": "",
+      "cityDesc": "",
+      "district": "",
+      "districtDesc": "",
+      "detail": ""
     },
     rules: {
       label: 'Address',
       type: 'za-address',
       vRules: 'required',
+      showDetail: true,
       errorMsg: '请输入如何看待寿险营销'
     }
   },
