@@ -105,9 +105,11 @@ const formUnitBase = Vue.extend({
       let obj = this.formModels
       for (key in obj) {
         // is virtual form fields
-        let rule = obj[key].rules
-        if (rule.type && rule.type !== 'title' && rule) {
-          keys.push(key)
+        if (obj.hasOwnProperty(key)){
+          let rule = obj[key].rules || {}
+          if (rule.type !== 'title') {
+            keys.push(key)
+          }
         }
       }
       return keys
@@ -127,12 +129,7 @@ const formUnitBase = Vue.extend({
       if (name) {
         return this.formErrors[name] || null
       }
-      for (let i in this.formErrors) {
-        if (this.formErrors.hasOwnProperty(i)) {
-          return this.formErrors[i]
-        }
-      }
-      return null
+      return this.errorBag[0]
     },
     getErrorMsg(name) {
       let err = this.getError(name)
@@ -245,14 +242,15 @@ const formUnitBase = Vue.extend({
       return this.fields[name]
     },
     validateAll() {
-      let fileds = Object.values(this.fields).map(i => i.onValidate())
-      return Promise.all(fileds).then(res => {
-        let isValid = res.find(i => i === false)
-        if (isValid === false) {
-          return false
-        } else {
-          return true
-        }
+      let self = this
+      return Promise.all(Object.values(this.fields).map(i => i.onValidate()))
+        .then(res => {
+          let isValid = res.find(i => i === false)
+          if (isValid === false) {
+            return self
+          } else {
+            return true
+          }
       }).catch(e => { return false })
     },
     resetFormValues() {
