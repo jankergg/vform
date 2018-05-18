@@ -52,6 +52,12 @@ export default {
       this.inputModel.rules.readOnly = !(v && v.length)
       this.onValidate()
       this.commit()
+    },
+    'formModel.value': {
+      deep: true,
+      handler(v){
+        this.innerValue = this.$innerValue
+      }
     }
   },
   computed: {

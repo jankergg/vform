@@ -243,7 +243,8 @@ const formUnitBase = Vue.extend({
     },
     validateAll() {
       let self = this
-      return Promise.all(Object.values(this.fields).map(i => i.onValidate()))
+      const fields = Object.keys(this.fields)
+      return Promise.all(fields.map(i => this.fields[i].onValidate()))
         .then(res => {
           let isValid = res.find(i => i === false)
           if (isValid === false) {
@@ -262,11 +263,11 @@ const formUnitBase = Vue.extend({
       deep: true,
       handler(v, o) {
         // 判断如果换了formModel 就重置formValues
-        let neo = this.__str(Object.keys(v))
-        let old = this.__str(Object.keys(o))
-        if (neo !== old) {
-          this.resetFormValues()
-        }
+        // let neo = this.__str(Object.keys(v))
+        // let old = this.__str(Object.keys(o))
+        // if (neo !== old) {
+        //   this.resetFormValues()
+        // }
       }
     },
     formValues: {
