@@ -10,8 +10,7 @@ import AlertPlugin from './src/plugins/alert/index.js'
 import ConfirmPlugin from './src/plugins/confirm/index.js'
 import ToastPlugin from './src/plugins/toast/index.js'
 import LoadingPlugin from './src/plugins/loading/index.js'
-import {Tab, TabItem, Loading} from './src/components/vux'
-
+import {Tab, TabItem, checker, checkerItem, checkList} from './src/components/vux'
 const {
   // formUnit
   formUnit,
@@ -49,6 +48,9 @@ export {
   ConfirmPlugin,
   ToastPlugin,
   baseMixin,
+  checker,
+  checkerItem,
+  checkList,
 
   // components
   formUnit,

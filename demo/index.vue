@@ -15,6 +15,13 @@
       <tab-item @on-item-click="onItemClick">全部订单</tab-item>
     </tab>
     <za-title :titleClass="tc">这个是表单标题</za-title>
+    <check-list
+      :title="'请选择'"
+      label-position="left"
+      required
+      :options="commonList"
+      v-model="checklist001"
+      @on-change="onCheck"></check-list>
     <form-unit name="f1" :formModels="formModel" @formChange="onChange" @formEvent="onEvent">
       <template slot="cust">
         <div>
@@ -35,7 +42,7 @@
 import Vue from 'vue'
 import { formUnit} from '../src/components/form-units'
 import { Tab, TabItem } from '../src/components/vux'
-import {AlertPlugin, ConfirmPlugin, ToastPlugin, LoadingPlugin, zaTitle} from '../'
+import {AlertPlugin, ConfirmPlugin, ToastPlugin, LoadingPlugin, zaTitle,checkList} from '../'
 // 导入配置文件
 import modelData from './formModel'
 // 导入自定义组件
@@ -50,6 +57,8 @@ export default {
   data() {
     return {
       formModel: {},
+      commonList: ['China', 'Japan', 'America' ],
+      checklist001: [],
       formModel2: modelData,
       tc: 'some-title-class'
     }
@@ -63,11 +72,14 @@ export default {
       // console.warn(t, 'trigger: onEvent', v)
     },
     onItemClick(){},
+    onCheck(v){
+      console.log(v)
+    },
     onChange(v) {
       // console.warn('trigger: formChange::', v)
     },
     data1() {
-      let nd = this.$children[0].__clone(modelData)
+      let nd = JSON.parse(JSON.stringify(modelData))
       // let nd = {}
       nd['home'] = {
         value: 'xuchang',
@@ -156,7 +168,7 @@ export default {
   components: {
     formUnit,
     testCust,
-    Tab, TabItem,
+    Tab, TabItem,checkList,
     zaTitle
   }
 }
