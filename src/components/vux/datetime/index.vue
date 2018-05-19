@@ -230,7 +230,7 @@ export default {
 </script>
 
 <style lang="less">
-@import "../../../styles/variable.less";
+@import "~@/assets/styles/variable.less";
 .weui-cells_form .vux-datetime-value.weui-cell__ft {
   font-size: inherit;
 }

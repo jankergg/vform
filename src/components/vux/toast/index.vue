@@ -113,10 +113,10 @@ export default {
 </script>
 
 <style lang="less">
-@import '../../../styles/transition.less';
-@import '../../../styles/weui/widget/weui_tips/weui_mask';
-@import '../../../styles/weui/icon/weui_icon_font';
-@import '../../../styles/weui/widget/weui_tips/weui_toast';
+@import '~@/assets/styles/transition.less';
+@import '~@/assets/styles/weui/widget/weui_tips/weui_mask';
+@import '~@/assets/styles/weui/icon/weui_icon_font';
+@import '~@/assets/styles/weui/widget/weui_tips/weui_toast';
 
 .weui-toast.vux-toast-top {
   top: @toast-position-top-offset;

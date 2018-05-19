@@ -19,8 +19,6 @@ const {
   zaTitle,
   zaSex,
   zaYesno,
-  zaCheckList,
-  zaCheckItem,
   zaQuestion,
 
   // src/components/form-fields/input
@@ -42,23 +40,22 @@ const {
 } = Components
 
 export {
+  // from vux
   LoadingPlugin,
   Tab, TabItem,
   AlertPlugin,
   ConfirmPlugin,
   ToastPlugin,
-  baseMixin,
   checker,
   checkerItem,
   checkList,
 
   // components
+  baseMixin,
   formUnit,
   zaTitle,
   zaSex,
   zaYesno,
-  zaCheckList,
-  zaCheckItem,
   zaQuestion,
   zaInput,
   zaInputBtn,

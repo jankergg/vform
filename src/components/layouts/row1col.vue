@@ -19,5 +19,5 @@
   }
 </script>
 <style lang='less'>
-@import '../../styles/row1col.less';
+@import '~@/assets/styles/row1col.less';
 </style>

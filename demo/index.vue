@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     onEvent(t, v) {
-      // console.warn(t, 'trigger: onEvent', v)
+      // console.warn(t, 'trigger: onEvent',__clone v)
     },
     onItemClick(){},
     onCheck(v){
@@ -174,7 +174,7 @@ export default {
 }
 </script>
 <style lang='less' scoped>
-  @import '../src/styles/variable.less';
+  @import '~@/assets/styles/variable.less';
   .container {
     padding:5px;
     font-size: 12px;

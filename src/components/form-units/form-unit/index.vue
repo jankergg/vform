@@ -65,5 +65,5 @@ export default formUnitBase.extend({
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang='less'>
-@import '../../../styles/form.less';
+@import '~@/assets/styles/form.less';
 </style>

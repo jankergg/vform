@@ -1,6 +1,3 @@
-import zaCheckList from './check-list'
-import zaCheckItem from './check-list/check-item'
-
 import zaQuestion from './check-question'
 import zaSex from './check-sex'
 import zaYesno from './check-yesno'
@@ -8,8 +5,6 @@ import zaYesno from './check-yesno'
 export {
   zaSex,
   zaYesno,
-  zaCheckList,
-  zaCheckItem,
   zaQuestion
 }
 
@@ -20,8 +15,6 @@ export default {
     zaYesno
   },
   block: {
-    zaCheckList,
-    zaCheckItem,
     zaQuestion
   }
 }

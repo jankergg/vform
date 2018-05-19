@@ -91,7 +91,7 @@ export default {
 
 
 <style lang="less">
-@import '../../../styles/variable.less';
+@import '~@/assets/styles/variable.less';
 
 @prefixClass: vux-tab;
 @easing-in-out: cubic-bezier(0.35, 0, 0.25, 1);

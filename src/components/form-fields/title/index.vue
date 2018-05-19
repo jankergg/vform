@@ -20,5 +20,5 @@
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang='less'>
-@import '../../../styles/form-title.less';
+@import '~@/assets/styles/form-title.less';
 </style>

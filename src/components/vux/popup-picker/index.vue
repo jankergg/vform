@@ -210,8 +210,8 @@ export default {
 </script>
 
 <style lang="less">
-@import '../../../styles/variable.less';
-@import '../../../styles/1px.less';
+@import '~@/assets/styles/variable.less';
+@import '~@/assets/styles/1px.less';
 
 .vux-cell-primary {
   flex: 1;

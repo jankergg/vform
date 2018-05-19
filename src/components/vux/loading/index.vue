@@ -45,9 +45,9 @@ export default {
 </script>
 
 <style lang="less">
-@import '../../../styles/weui/widget/weui_tips/weui_mask';
-@import '../../../styles/weui/widget/weui_tips/weui_toast';
-@import '../../../styles/weui/widget/weui-loading/weui-loading.less';
+@import '~@/assets/styles/weui/widget/weui_tips/weui_mask';
+@import '~@/assets/styles/weui/widget/weui_tips/weui_toast';
+@import '~@/assets/styles/weui/widget/weui-loading/weui-loading.less';
 
 .weui-icon_toast.weui-loading {
   margin: 30px 0 0;
