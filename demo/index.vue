@@ -17,7 +17,7 @@
     <za-title :titleClass="tc">这个是表单标题</za-title>
     <check-list
       :title="'请选择'"
-      label-position="left"
+      label-position="right"
       required
       :options="commonList"
       v-model="checklist001"

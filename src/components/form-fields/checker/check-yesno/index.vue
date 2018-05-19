@@ -39,29 +39,5 @@ export default {
 }
 </script>
 <style lang='less'>
-  .za-yesno{
-    text-align:right;
-    .za-yesno-box{
-      display:inline-block;
-      vertical-align: middle;
-      overflow:hidden;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      font-size:0;
-      line-height: 0;
-      .za-yesno-item {
-        display: inline-block;
-        font-size: 14px;
-        line-height: 1.2;
-        padding: 4px 8px;
-      }
-      .za-yesno-item.active {
-        background: #91dbfe;
-        color:#fff;
-      }
-      .za-yesno-item:first-child{
-        border-right:1px solid #ccc;
-      }
-    }
-  }
+  @import '~@/assets/styles/form.less';
 </style>

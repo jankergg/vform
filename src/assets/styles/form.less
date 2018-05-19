@@ -1,7 +1,9 @@
 @import "./weui/base/reset.less";
 @import "./weui/base/variable/global";
 @import "./weui/base/variable/color";
+@import './weui/widget/weui_cell/weui_cell_global';
 @import "./weui/base/variable/weui-cell";
+@import './weui/widget/weui_cell/weui_check';
 @import "./variable";
 // @import "./form-title";
 .weui-cells_unit {
@@ -30,4 +32,104 @@
     height:100%;
     width:100%;
   }
+}
+
+// checkbox checklist
+.weui-cells_checkbox .weui-check:checked + .vux-checklist-icon-checked:before {
+  color: @checklist-icon-active-color;
+}
+
+.weui-cells_checkbox > label > * {
+  pointer-events: none;
+}
+.weui-cells_checkbox{
+  .bd_link{
+    position:absolute;right:0;z-index:2;top:4px;
+    font-size:13px;
+    color:@checkbox-icon-color-checked;
+  }
+  .weui-cell__bd{
+    position:relative
+  }
+}
+.vux-checklist-disabled .vux-checklist-icon-checked:before {
+  opacity: 0.5;
+}
+.vux-checklist-label-left {
+  flex-direction: row-reverse;
+}
+// sex checker
+.za-sex {
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  vertical-align: middle;
+  .za-sex-box{
+    overflow: hidden;
+    position: relative;
+    & > div {
+      color: #999999;
+      display: inline-block;
+      border-radius: 10px;
+      position: relative;
+      font-size: 14px;
+      line-height: 1.2;
+      box-sizing: border-box;
+      vertical-align: middle;
+      margin-left: 10px;
+      padding: 4px 20px;
+      border: 1px solid #ccc;
+      &.seled {
+        border: none;
+        color: #fff;
+      }
+      &.male.seled {
+        background: #91dbfe;
+        border: 1px solid #91dbfe;
+      }
+      &.famale.seled {
+        background: #fb7d8f;
+        border: 1px solid #fb7d8f;
+      }
+    }
+  }
+  .dis > div.male.seled,
+  .dis > div.famale.seled {
+    background:#c0c0c0;
+  }
+}
+
+// yes or no checker
+.za-yesno{
+  text-align:right;
+  .za-yesno-box{
+    display:inline-block;
+    vertical-align: middle;
+    overflow:hidden;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size:0;
+    line-height: 0;
+    .za-yesno-item {
+      display: inline-block;
+      font-size: 14px;
+      line-height: 1.2;
+      padding: 4px 8px;
+    }
+    .za-yesno-item.active {
+      background: #91dbfe;
+      color:#fff;
+    }
+    .za-yesno-item:first-child{
+      border-right:1px solid #ccc;
+    }
+  }
+}
+
+// timeDate
+.time-item-box .weui-cell__ft {
+  color: @weuiTextColorGrayWeight;
+}
+.time-item-box.isempty .weui-cell__ft {
+  color: @weuiTextColorLightGray;
 }

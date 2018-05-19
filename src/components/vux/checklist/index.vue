@@ -175,30 +175,5 @@
 </script>
 
 <style lang="less">
-  @import '~@/assets/styles/weui/widget/weui_cell/weui_cell_global';
-  @import '~@/assets/styles/weui/widget/weui_cell/weui_check';
-
-  .weui-cells_checkbox .weui-check:checked + .vux-checklist-icon-checked:before {
-    color: @checklist-icon-active-color;
-  }
-
-  .weui-cells_checkbox > label > * {
-    pointer-events: none;
-  }
-  .weui-cells_checkbox{
-    .bd_link{
-      position:absolute;right:0;z-index:2;
-      font-size:13px;
-      color:@checkbox-icon-color-checked;
-    }
-    .weui-cell__bd{
-      position:relative
-    }
-  }
-  .vux-checklist-disabled .vux-checklist-icon-checked:before {
-    opacity: 0.5;
-  }
-  .vux-checklist-label-left {
-    flex-direction: row-reverse;
-  }
+  @import '~@/assets/styles/form.less';
 </style>

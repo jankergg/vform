@@ -80,11 +80,6 @@ export default {
   }
 }
 </script>
-<style>
-.time-item-box .weui-cell__ft {
-  color: #333;
-}
-.time-item-box.isempty .weui-cell__ft {
-  color: #999;
-}
+<style lang="less">
+  @import '~@/assets/styles/form.less';
 </style>
