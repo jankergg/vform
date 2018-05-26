@@ -7,7 +7,11 @@
 import base from '../../mixin/base-mixin'
 export default {
   data() {
-    return {innerValue: [], __oldValue: '', autoTrigger: this.formModel.rules.autoTrigger}
+    return {
+      innerValue: [],
+      __oldValue: '',
+      autoTrigger: this.formModel.rules.autoTrigger
+    }
   },
   mixins : [base],
   created() {

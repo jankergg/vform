@@ -6,10 +6,11 @@
 <template>
   <div class="form-title" :class="className">
     <div class="msg">
-      <slot>
-        {{formModel && formModel.rules.label}}
-      </slot>
+        <slot>
+          {{formModel && formModel.rules.label}}
+        </slot>
     </div>
+    <div class="icon"><slot name="icon"></slot></div>
   </div>
 </template>
 <script>

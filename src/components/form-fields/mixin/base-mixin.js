@@ -42,6 +42,7 @@ export default {
     // idCard.innerValue = 'xxx' （禁止此类操作）
     // idCard.onValidate() (可以)
     // let v = idCard.isValid (可以)
+    this.isReadOnly = this.readonly
     this.formUnit.fields[this.name] = this
   },
   computed: {
