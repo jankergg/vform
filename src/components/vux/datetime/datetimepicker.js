@@ -6,9 +6,9 @@ const MASK_TEMPLATE = '<div class="dp-mask"></div>'
 
 const TEMPLATE = `<div class="dp-container">
   <div class="dp-header">
-    <div class="dp-item dp-left vux-datetime-cancel" data-role="cancel">cancel</div>
+    <div class="dp-item dp-left vux-datetime-cancel" data-role="cancel">取消</div>
     <div class="dp-item vux-datetime-clear" data-role="clear"></div>
-    <div class="dp-item dp-right vux-datetime-confirm" data-role="confirm">ok</div>
+    <div class="dp-item dp-right vux-datetime-confirm" data-role="confirm">确定</div>
   </div>
   <div class="dp-content">
     <div class="dp-item" data-role="year"></div>
