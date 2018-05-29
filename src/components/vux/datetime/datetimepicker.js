@@ -62,9 +62,9 @@ var DEFAULT_CONFIG = {
   onClear () {},
   onShow () {},
   onHide () {},
-  confirmText: 'ok',
+  confirmText: '确定',
   clearText: '',
-  cancelText: 'cancel',
+  cancelText: '取消',
   destroyOnHide: false
 }
 
