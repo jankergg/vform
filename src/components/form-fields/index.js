@@ -13,6 +13,8 @@ import selects from './select'
 
 import zaTitle from './title'
 
+import zaText from './text'
+
 export default {
   ...checkers.inline,
   ...checkers.block,
@@ -21,8 +23,7 @@ export default {
   ...selects.inline,
   ...selects.block
 }
-// question 组件 slot mixin
-// 用来扩展新的 slot 组件
+// question 组件 slot mixin 用来扩展新的 slot 组件
 import questionSlot from './select/mixin/question-slot-mixin'
 // export rootitems
 export const ROOT_ITEM = {
@@ -32,6 +33,7 @@ export const ROOT_ITEM = {
 }
 // export form-row-items
 export const FORM_ROW_ITEM = {
+  zaText,
   ...checkers.inline,
   ...inputs.inline,
   ...selects.inline

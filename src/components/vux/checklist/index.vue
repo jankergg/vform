@@ -12,7 +12,7 @@
         </div>
         <div class="weui-cell__bd">
           <a class="bd_link" v-if="one.link" :href="one.link">{{one.linkText?one.linkText:'详情&#187;'}}</a>
-          <label :for="`checkbox_${uuid}_${index}`">
+          <label :for="`checkbox_${uuid}_${index}`" class="labelName">
             <p v-html="getValue(one)"></p>
           </label>
         </div>
@@ -23,157 +23,161 @@
 </template>
 
 <script>
-  import Base from '../../../libs/base'
-  import Tip from '../tip'
-  import Icon from '../icon'
-  import { getValue, getKey } from './object-filter'
-  import shuffle from 'array-shuffle'
+import Base from '../../../libs/base'
+import Tip from '../tip'
+import Icon from '../icon'
+import { getValue, getKey } from './object-filter'
+import shuffle from 'array-shuffle'
 
-  export default {
-    name: 'check-list',
-    components: {
-      Tip,
-      Icon
+export default {
+  name: 'check-list',
+  components: {
+    Tip,
+    Icon
+  },
+  filters: {
+    getValue,
+    getKey
+  },
+  mixins: [Base],
+  props: {
+    name: String,
+    showError: Boolean,
+    title: String,
+    required: {
+      type: Boolean,
+      default: false
     },
-    filters: {
-      getValue,
-      getKey
+    options: {
+      type: Array,
+      required: true
     },
-    mixins: [Base],
-    props: {
-      name: String,
-      showError: Boolean,
-      title: String,
-      required: {
-        type: Boolean,
-        default: false
-      },
-      options: {
-        type: Array,
-        required: true
-      },
-      value: {
-        type: Array,
-        default: () => []
-      },
-      max: Number,
-      min: Number,
-      fillMode: Boolean,
-      randomOrder: Boolean,
-      checkDisabled: {
-        type: Boolean,
-        default: true
-      },
-      labelPosition: String,
-      disabled: Boolean
+    value: {
+      type: Array,
+      default: () => []
     },
-    data () {
-      return {
-        currentValue: [],
-        currentOptions: this.options
+    max: Number,
+    min: Number,
+    fillMode: Boolean,
+    randomOrder: Boolean,
+    checkDisabled: {
+      type: Boolean,
+      default: true
+    },
+    labelPosition: String,
+    disabled: Boolean
+  },
+  data() {
+    return {
+      currentValue: [],
+      currentOptions: this.options
+    }
+  },
+  created() {
+    this.handleChangeEvent = true
+    if (this.value) {
+      this.currentValue = this.value
+    }
+    if (this.randomOrder) {
+      this.currentOptions = shuffle(this.options)
+    } else {
+      this.currentOptions = this.options
+    }
+  },
+  methods: {
+    getValue,
+    getKey,
+    ifDisable(key) {
+      if (!this.checkDisabled) {
+        return false
+      }
+      return this.currentValue.indexOf(key) === -1 && this.currentValue.length === this._max
+    }
+  },
+  computed: {
+    _total() {
+      return this.fillMode ? (this.options.length + 1) : this.options.length
+    },
+    _min() {
+      if (!this.required && !this.min) {
+        return 0
+      }
+      if (!this.required && this.min) {
+        return Math.min(this._total, this.min)
+      }
+      if (this.required) {
+        if (this.min) {
+          let max = Math.max(1, this.min)
+          return Math.min(this._total, max)
+        } else {
+          return 1
+        }
       }
     },
-    created () {
-      this.handleChangeEvent = true
-      if (this.value) {
-        this.currentValue = this.value
+    _max() {
+      if (!this.required && !this.max) {
+        return this._total
       }
-      if (this.randomOrder) {
-        this.currentOptions = shuffle(this.options)
+      if (this.max) {
+        if (this.max > this._total) {
+          return this._total
+        }
+        return this.max
       } else {
-        this.currentOptions = this.options
+        return this._total
       }
     },
-    methods: {
-      getValue,
-      getKey,
-      ifDisable (key) {
-        if (!this.checkDisabled) {
-          return false
-        }
-        return this.currentValue.indexOf(key) === -1 && this.currentValue.length === this._max
+    valid() {
+      return this.currentValue.length >= this._min && this.currentValue.length <= this._max
+    }
+  },
+  watch: {
+    value(newVal) {
+      if (JSON.stringify(newVal) !== JSON.stringify(this.currentValue)) {
+        this.currentValue = newVal
       }
     },
-    computed: {
-      _total () {
-        return this.fillMode ? (this.options.length + 1) : this.options.length
-      },
-      _min () {
-        if (!this.required && !this.min) {
-          return 0
-        }
-        if (!this.required && this.min) {
-          return Math.min(this._total, this.min)
-        }
-        if (this.required) {
-          if (this.min) {
-            let max = Math.max(1, this.min)
-            return Math.min(this._total, max)
-          } else {
-            return 1
-          }
-        }
-      },
-      _max () {
-        if (!this.required && !this.max) {
-          return this._total
-        }
-        if (this.max) {
-          if (this.max > this._total) {
-            return this._total
-          }
-          return this.max
-        } else {
-          return this._total
-        }
-      },
-      valid () {
-        return this.currentValue.length >= this._min && this.currentValue.length <= this._max
-      }
+    options(val) {
+      this.currentOptions = val
     },
-    watch: {
-      value (newVal) {
-        if (JSON.stringify(newVal) !== JSON.stringify(this.currentValue)) {
-          this.currentValue = newVal
-        }
-      },
-      options (val) {
-        this.currentOptions = val
-      },
-      currentValue (newVal) {
-        const val = pure(newVal)
-        this.$emit('on-change', val)
-        this.$emit('input', val)
+    currentValue(newVal) {
+      const val = pure(newVal)
+      this.$emit('on-change', val)
+      this.$emit('input', val)
 
-        let err = {}
-        if (this._min) {
-          if (this.required) {
-            if (this.currentValue.length < this._min) {
-              err = {
-                min: this._min
-              }
+      let err = {}
+      if (this._min) {
+        if (this.required) {
+          if (this.currentValue.length < this._min) {
+            err = {
+              min: this._min
             }
-          } else {
-            if (this.currentValue.length && this.currentValue.length < this._min) {
-              err = {
-                min: this._min
-              }
+          }
+        } else {
+          if (this.currentValue.length && this.currentValue.length < this._min) {
+            err = {
+              min: this._min
             }
           }
         }
-        if (!this.valid && this.dirty && Object.keys(err).length) {
-          this.$emit('on-error', err)
-        } else {
-          this.$emit('on-clear-error')
-        }
+      }
+      if (!this.valid && this.dirty && Object.keys(err).length) {
+        this.$emit('on-error', err)
+      } else {
+        this.$emit('on-clear-error')
       }
     }
   }
-  function pure (obj) {
-    return JSON.parse(JSON.stringify(obj))
-  }
+}
+function pure(obj) {
+  return JSON.parse(JSON.stringify(obj))
+}
 </script>
 
 <style lang="less">
-  @import '~@/assets/styles/form.less';
+@import "~@/assets/styles/form.less";
+.labelName {
+  display: block;
+  padding-right: 15%;
+}
 </style>

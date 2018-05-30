@@ -14,9 +14,9 @@ import {Tab, TabItem, checker, checkerItem, checkList} from './src/components/vu
 const {
   // formUnit
   formUnit,
-  // form fields
-  // src/components/form-fields/check
+  // form fields src/components/form-fields/check
   zaTitle,
+  zaText,
   zaSex,
   zaYesno,
   zaQuestion,
@@ -42,7 +42,8 @@ const {
 export {
   // from vux
   LoadingPlugin,
-  Tab, TabItem,
+  Tab,
+  TabItem,
   AlertPlugin,
   ConfirmPlugin,
   ToastPlugin,
@@ -54,6 +55,7 @@ export {
   baseMixin,
   formUnit,
   zaTitle,
+  zaText,
   zaSex,
   zaYesno,
   zaQuestion,

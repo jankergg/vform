@@ -1,11 +1,18 @@
 export default {
-  title1: {
+  title1 : {
     rules: {
       label: '基本信息',
       type: 'title'
     }
   },
-  income: {
+  text : {
+    value: 'this is text',
+    rules: {
+      label: 'text',
+      type: 'za-text'
+    }
+  },
+  income : {
     value: '',
     rules: {
       label: 'Income',
@@ -18,7 +25,7 @@ export default {
       }
     }
   },
-  address: {
+  address : {
     value: {
       "province": "",
       "provinceDesc": "",
@@ -36,7 +43,7 @@ export default {
       errorMsg: '请输入如何看待寿险营销'
     }
   },
-  birthDay: {
+  birthDay : {
     value: '1986-07-02',
     rules: {
       label: 'birthDay',
@@ -46,7 +53,7 @@ export default {
       errorMsg: '请输入如何看待寿险营销'
     }
   },
-  sex: {
+  sex : {
     value: 'M',
     rules: {
       label: 'sex',
@@ -56,7 +63,7 @@ export default {
       errorMsg: '请输入如何看待寿险营销'
     }
   },
-  Married: {
+  Married : {
     value: 'Y',
     rules: {
       label: 'Married',
@@ -65,7 +72,7 @@ export default {
       errorMsg: '请输入如何看待寿险营销'
     }
   },
-  CertType: {
+  CertType : {
     value: 'yyyyy',
     rules: {
       label: 'CertType',
@@ -73,10 +80,12 @@ export default {
       vRules: 'required',
       placeholder: '请选择',
       errorMsg: '请输入如何看待寿险营销',
-      options: [['xxxx', 'yyyyy', 'zzzzz']]
+      options: [
+        ['xxxx', 'yyyyy', 'zzzzz']
+      ]
     }
   },
-  bankCard: {
+  bankCard : {
     value: '6226090211632175',
     rules: {
       label: 'bankCard',
@@ -86,7 +95,7 @@ export default {
       errorMsg: '请输入如何看待寿险营销'
     }
   },
-  Reason: {
+  Reason : {
     value: 'xxxx',
     rules: {
       label: 'Reason',
