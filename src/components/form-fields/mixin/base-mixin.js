@@ -75,6 +75,7 @@ export default {
       handler(v) {
         this.innerValue = v.value
         this.innerRules = v.rules
+        this.isReadOnly = this.readonly
       }
     },
     innerValue: {

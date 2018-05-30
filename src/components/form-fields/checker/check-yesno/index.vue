@@ -7,7 +7,8 @@
 <template>
    <!-- 是否 类型 -->
   <div class="za-yesno">
-    <div class="za-yesno-box">
+    <div class="root-select-mask" v-if="isReadOnly"></div>
+    <div class="za-yesno-box" :class="{dis: isReadOnly}">
       <span class="za-yesno-item" :class="{active: innerValue === 'Y'}" @click="onClick('Y')">是</span>
       <span class="za-yesno-item" :class="{active: innerValue === 'N'}" @click="onClick('N')">否</span>
     </div>

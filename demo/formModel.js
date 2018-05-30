@@ -60,6 +60,7 @@ export default {
       type: 'za-sex',
       vRules: 'required',
       placeholder: '请选择',
+      readOnly: false,
       errorMsg: '请输入如何看待寿险营销'
     }
   },
