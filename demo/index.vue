@@ -69,14 +69,14 @@ export default {
   },
   methods: {
     onEvent(t, v) {
-      // console.warn(t, 'trigger: onEvent',__clone v)
+      console.warn(t, 'trigger: onEvent', v)
     },
     onItemClick(){},
     onCheck(v){
       console.log(v)
     },
     onChange(v) {
-      // console.warn('trigger: formChange::', v)
+      console.warn('trigger: formChange::', v)
     },
     data1() {
       let nd = JSON.parse(JSON.stringify(modelData))

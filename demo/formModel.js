@@ -5,6 +5,14 @@ export default {
       type: 'title'
     }
   },
+  button_group: {
+    value: 'ccc',
+    rules: {
+      label: 'button_group',
+      type: 'za-button_group',
+      options: [{name: '选项1', value:'aaa'},{name: '选项1', value:'ccc'},{name: '选项3', value:'bbb'}]
+    }
+  },
   text : {
     value: 'this is text',
     rules: {
@@ -37,6 +45,7 @@ export default {
     },
     rules: {
       label: 'Address',
+      subLabel: 'detail',
       type: 'za-address',
       vRules: 'required',
       showDetail: true,

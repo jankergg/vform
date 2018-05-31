@@ -2,7 +2,7 @@
 * @Author: jankergg
 * @Date:   2018-01-23 17:24:29
 * @Last Modified by:   jankergg
-* @Last Modified time: 2018-05-15 19:38:13
+* @Last Modified time: 2018-05-31 16:43:10
 */
 import Components from './src/components'
 import baseMixin from './src/components/form-fields/mixin/base-mixin'
@@ -19,6 +19,7 @@ const {
   zaText,
   zaSex,
   zaYesno,
+  zaButton_group,
   zaQuestion,
 
   // src/components/form-fields/input
@@ -58,6 +59,7 @@ export {
   zaText,
   zaSex,
   zaYesno,
+  zaButton_group,
   zaQuestion,
   zaInput,
   zaInputBtn,

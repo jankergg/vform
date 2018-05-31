@@ -7,9 +7,12 @@
 <template>
   <div class="web-select-box">
     <div class="root-select-mask" v-if="isReadOnly"></div>
-    <x-address :list="datalist" placeholder="省 / 市 / 县" v-model="innerValue" @on-hide="onHide" @on-change="onChange"></x-address>
-    <za-input v-if="showInput" @formEvent="onInputEvent" @formChange="onInputChange" :inset="true" :formModel="inputModel" :name="name">
-    </za-input>
+    <div class="weui-value">
+      <x-address :list="datalist" placeholder="省 / 市 / 县" v-model="innerValue" @on-hide="onHide" @on-change="onChange"></x-address>
+    </div>
+    <div class="weui-value">
+    <za-input v-if="showInput" @formEvent="onInputEvent" @formChange="onInputChange" :inset="true" :formModel="inputModel" :name="name"> </za-input>
+    </div>
   </div>
 </template>
 <script>
@@ -38,7 +41,7 @@ export default {
         rules: {
           type: 'za-input',
           vRules: 'required|min:8',
-          readOnly: true,
+          // readOnly: true,
           placeholder: '请输入详细地址'
         },
         value: this.formModel.value.detail
@@ -49,7 +52,7 @@ export default {
   props: ['formModel', 'name', 'index'],
   watch: {
     innerValue(v) {
-      this.inputModel.rules.readOnly = !(v && v.length)
+      // this.inputModel.rules.readOnly = !(v && v.length)
       this.onValidate()
       this.commit()
     },
@@ -207,4 +210,5 @@ export default {
 }
 </script>
 
-<style lang='less'></style>
+<style lang='less'>
+</style>

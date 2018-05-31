@@ -129,6 +129,24 @@
   }
 }
 
+.za-button_group{
+  .za-button_group-box{
+    text-align:right;
+  }
+  .button-item {
+    display: inline-block;
+    margin:0 0 0 8px;
+    padding: 2px 8px;
+    border-radius: 5px;
+    color:@weuiTextColorLightGray;
+    background-color:@weuiBgColorActive;
+    &.active{
+      color: @weuiBgColorPlain;
+      background-color:@weuiColorPrimary;
+    }
+  }
+}
+
 // timeDate
 .time-item-box .weui-cell__ft {
   color: @weuiTextColorGrayWeight;

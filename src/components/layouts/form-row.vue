@@ -6,6 +6,7 @@
 <template>
   <row-2-col>
     <template slot="label" v-if="formModel.rules.label">{{formModel.rules.label}}</template>
+    <template slot="subLabel" v-if="formModel.rules.subLabel">{{formModel.rules.subLabel}}</template>
     <template slot="val" v-if="formModel.rules.type">
       <component
         :is="getType(formModel.rules.type)"
