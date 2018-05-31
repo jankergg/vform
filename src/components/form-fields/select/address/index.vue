@@ -56,10 +56,19 @@ export default {
       this.onValidate()
       this.commit()
     },
+    'formModel.rules': {
+      deep: true,
+      handler(v){
+        if (v.detailRules){
+          this.inputModel.rules = v.detailRules
+        }
+      }
+    },
     'formModel.value': {
       deep: true,
       handler(v){
         this.innerValue = this.$innerValue
+        this.inputModel.value = v.detail
       }
     }
   },
@@ -93,6 +102,9 @@ export default {
       window.__select_area_data = data.areaData.data
     }
     this.datalist = JSON.parse(window.__select_area_data)
+    if (this.formModel.rules.detailRules){
+      this.inputModel.rules = this.formModel.rules.detailRules
+    }
     this.innerValue = this.$innerValue
   },
   methods: {
