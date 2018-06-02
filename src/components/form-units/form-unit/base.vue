@@ -221,6 +221,15 @@ const formUnitBase = Vue.extend({
         isValid: this.isValid
       }
     },
+    setValues(model){
+      let items = Object.keys(model)
+      items.map(i => {
+        let item = this.getItem(i)
+        if (item){
+          item.innerValue = model[i].value
+        }
+      })
+    },
     isEmpty() {
       let _all = Object.values(this.formValues).filter(item => {
         return (typeof item !== 'boolean' && !item)

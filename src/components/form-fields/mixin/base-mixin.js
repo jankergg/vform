@@ -2,7 +2,7 @@
 /* @Description: 所有表单类型通用mixin,主要包含验证，数据处理等公共逻辑
 * @Date:   2017-09-13 15:41:02
 * @Last Modified by:   jankergg
-* @Last Modified time: 2018-05-17 16:51:18
+* @Last Modified time: 2018-06-02 12:00:20
 ********************************************************
 *符合以下标准的方法或者变量才可放在本base-mixin, 否则会污染组件 *
 *1、初始化操作 (挂载当前组件到formUnit)                     *
@@ -81,7 +81,9 @@ export default {
     innerValue: {
       deep: true,
       handler(v) {
-        this.onValidate()
+        this.onValidate().then(res=>{
+          this.commit()
+        })
       }
     }
   },

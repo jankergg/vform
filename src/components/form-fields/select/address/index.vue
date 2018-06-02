@@ -11,7 +11,7 @@
       <x-address :list="datalist" placeholder="省 / 市 / 县" v-model="innerValue" @on-hide="onHide" @on-change="onChange"></x-address>
     </div>
     <div class="weui-value">
-    <za-input v-if="showInput" @formEvent="onInputEvent" @formChange="onInputChange" :inset="true" :formModel="inputModel" :name="name"> </za-input>
+      <za-input v-if="showInput" @formEvent="onInputEvent" @formChange="onInputChange" :inset="true" :formModel="inputModel" :name="name"> </za-input>
     </div>
   </div>
 </template>
@@ -44,7 +44,7 @@ export default {
           // readOnly: true,
           placeholder: '请输入详细地址'
         },
-        value: this.formModel.value.detail
+        value:''
       },
       datalist: []
     }
@@ -53,22 +53,15 @@ export default {
   watch: {
     innerValue(v) {
       // this.inputModel.rules.readOnly = !(v && v.length)
-      this.onValidate()
-      this.commit()
-    },
-    'formModel.rules': {
-      deep: true,
-      handler(v){
-        if (v.detailRules){
-          this.inputModel.rules = v.detailRules
-        }
-      }
+      this.onValidate().then(()=>{
+        this.commit()
+      })
     },
     'formModel.value': {
       deep: true,
-      handler(v){
+      handler(v) {
         this.innerValue = this.$innerValue
-        this.inputModel.value = v.detail
+        this.inputModel.value = this.formModel.value.detail || ''
       }
     }
   },
@@ -76,22 +69,22 @@ export default {
     showInput() {
       return this.formModel.rules.showDetail
     },
-    $innerValue(){
+    $innerValue() {
       let v = this.formModel.value
-      if (v.province !==undefined && v.city !==undefined  && v.district !==undefined ){
-        if (v.province && v.city && v.district){
+      if (v.province !== undefined && v.city !== undefined && v.district !== undefined) {
+        if (v.province && v.city && v.district) {
           return [v.province, v.city, v.district]
         }
         return []
       }
       console.warn('address组件初始value值设置不正确请参考 ：', {
         "province": "110000",
-          "provinceDesc": "北京市",
-          "city": "110100",
-          "cityDesc": "北京市",
-          "district": "110101",
-          "districtDesc": "东城区",
-          "detail": "圆明园路真光大楼"
+        "provinceDesc": "北京市",
+        "city": "110100",
+        "cityDesc": "北京市",
+        "district": "110101",
+        "districtDesc": "东城区",
+        "detail": "圆明园路真光大楼"
       })
       return []
     }
@@ -102,10 +95,8 @@ export default {
       window.__select_area_data = data.areaData.data
     }
     this.datalist = JSON.parse(window.__select_area_data)
-    if (this.formModel.rules.detailRules){
-      this.inputModel.rules = this.formModel.rules.detailRules
-    }
     this.innerValue = this.$innerValue
+    this.inputModel.value = this.formModel.value.detail || ''
   },
   methods: {
     onValidate() {
@@ -191,15 +182,15 @@ export default {
       }
       _address.detail = this.inputValue || ''
       // 判断地址是否填写
-      function isFilled(address, scope){
+      function isFilled(address, scope) {
         for (let i in address) {
           if (address.hasOwnProperty(i)) {
-            if (address[i] === '' && i!=='detail'){
+            if (address[i] === '' && i !== 'detail') {
               return false
             }
           }
         }
-        if (scope.showInput){
+        if (scope.showInput) {
           return scope.inputValid
         }
         return true
