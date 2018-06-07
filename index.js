@@ -2,7 +2,7 @@
 * @Author: jankergg
 * @Date:   2018-01-23 17:24:29
 * @Last Modified by:   jankergg
-* @Last Modified time: 2018-05-31 16:43:10
+* @Last Modified time: 2018-06-06 18:28:51
 */
 import Components from './src/components'
 import baseMixin from './src/components/form-fields/mixin/base-mixin'
@@ -10,7 +10,7 @@ import AlertPlugin from './src/plugins/alert/index.js'
 import ConfirmPlugin from './src/plugins/confirm/index.js'
 import ToastPlugin from './src/plugins/toast/index.js'
 import LoadingPlugin from './src/plugins/loading/index.js'
-import {Tab, TabItem, checker, checkerItem, checkList} from './src/components/vux'
+import {Tab, TabItem, checker, checkerItem, checkList, PopupPicker} from './src/components/vux'
 const {
   // formUnit
   formUnit,
@@ -51,6 +51,7 @@ export {
   checker,
   checkerItem,
   checkList,
+  PopupPicker,
 
   // components
   baseMixin,
