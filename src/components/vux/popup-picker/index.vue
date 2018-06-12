@@ -147,6 +147,9 @@ export default {
       if (type) {
         this.closeType = true
         this.currentValue = getObject(this.tempValue)
+        if (!this.currentValue.length){
+          this.currentValue = ["110000", "110100", "110101"]
+        }
       }
       if (!type) {
         this.closeType = false
