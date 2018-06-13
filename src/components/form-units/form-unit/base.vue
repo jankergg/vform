@@ -278,6 +278,7 @@ const formUnitBase = Vue.extend({
           if (v[key] === undefined){
             this.$delete(this.formValues, key)
             this.$delete(this.formErrors, key)
+            this.$delete(this.fields, key)
           }
         })
       }
