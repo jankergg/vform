@@ -271,12 +271,15 @@ const formUnitBase = Vue.extend({
     formModels: {
       deep: true,
       handler(v, o) {
-        // 判断如果换了formModel 就重置formValues
-        // let neo = this.__str(Object.keys(v))
-        // let old = this.__str(Object.keys(o))
-        // if (neo !== old) {
-        //   this.resetFormValues()
-        // }
+        // 判断如果换了formModel 就移除旧值 from formValues
+        let neo = Object.keys(v)
+        let old = Object.keys(this.formValues)
+        old.map(key => {
+          if (v[key] === undefined){
+            this.$delete(this.formValues, key)
+            this.$delete(this.formErrors, key)
+          }
+        })
       }
     },
     formValues: {

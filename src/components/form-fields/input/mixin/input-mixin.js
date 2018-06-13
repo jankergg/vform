@@ -2,7 +2,7 @@
 /* @Description: input 类型通用mixin
 * @Date:   2017-09-13 15:41:02
 * @Last Modified by:   jankergg
-* @Last Modified time: 2018-05-17 16:53:44
+* @Last Modified time: 2018-06-13 15:50:37
 */
 import base from '../../mixin/base-mixin'
 
@@ -142,6 +142,14 @@ export default {
     }
   },
   watch: {
+    'formModel.rules.vRuels': {
+      deep: true,
+      handler(v){
+        this.onValidate().then(res => {
+          this.commit()
+        })
+      }
+    },
     value (v) {
       if (v === null || v === undefined) {
         v = ''

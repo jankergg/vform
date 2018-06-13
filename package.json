@@ -1,7 +1,7 @@
 {
   "name": "vformer",
   "main": "index.js",
-  "version": "0.0.28",
+  "version": "0.0.30",
   "description": "form generator build on vue",
   "author": "jankergg <jankergg@gmail.com>",
   "scripts": {
