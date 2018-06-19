@@ -2,7 +2,7 @@
 /* @Description: input 类型通用mixin
 * @Date:   2017-09-13 15:41:02
 * @Last Modified by:   jankergg
-* @Last Modified time: 2018-06-13 15:50:37
+* @Last Modified time: 2018-06-19 14:48:45
 */
 import base from '../../mixin/base-mixin'
 
@@ -52,6 +52,11 @@ export default {
       // rules.event 定义数据变化事件
       // 比如：定义rules.event: 'change', 则只有change事件才会通知UI视图更新
       this.__eventType = (this.formModel && this.formModel.rules && this.formModel.rules.event) || 'input'
+    },
+    // 更新验证规则
+    updateValidator(rules){
+      this._validator.detach(this.name)
+      this._validator.attach(this.name, rules || this.formModel.rules.vRules)
     },
     eventHandler (e, type) {
       let eName = 'e_' + this.__eventType
@@ -145,6 +150,7 @@ export default {
     'formModel.rules.vRuels': {
       deep: true,
       handler(v){
+        this.updateValidator()
         this.onValidate().then(res => {
           this.commit()
         })

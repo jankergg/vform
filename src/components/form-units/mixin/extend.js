@@ -2,7 +2,7 @@
 * @Author: jankergg
 * @Date:   2018-02-02 15:58:39
 * @Last Modified by:   jankergg
-* @Last Modified time: 2018-05-17 17:24:23
+* @Last Modified time: 2018-06-19 15:03:15
 */
 const msgFormatError = '格式错误'
 const usernameError = '请重新录入姓名，只能为中文/ 大写英文字母/半角中文点号'
@@ -118,7 +118,7 @@ export const acrossline = {
 
 export const idcard = {
   messages: {
-    cn: (field, args) => field + msgFormatError
+    cn: (field, args) => '身份证' + msgFormatError
   },
   validate: (value, args) => {
     let num = trimStr(value)
@@ -214,7 +214,7 @@ export const bankcard = {
 
 export const tel = {
   messages: {
-    cn: (field, args) => field + msgFormatError
+    cn: (field, args) => '电话' + msgFormatError
   },
   validate: (value, args) => {
     // return /^1[3|4|5|7|8][0-9]\d{4,8}$/.demo(trimStr(value))
@@ -224,7 +224,7 @@ export const tel = {
 
 export const zipcode = {
   messages: {
-    cn: (field, args) => field + msgFormatError
+    cn: (field, args) => '邮编' + msgFormatError
   },
   validate: (value, args) => {
     // return /^1[3|4|5|7|8][0-9]\d{4,8}$/.demo(trimStr(value))
@@ -234,7 +234,7 @@ export const zipcode = {
 
 export const age = {
   messages: {
-    cn: (field, args) => field + msgFormatError
+    cn: (field, args) => '年龄' + msgFormatError
   },
   validate: (value, args) => {
     // return /^1[3|4|5|7|8][0-9]\d{4,8}$/.demo(trimStr(value))
@@ -244,7 +244,7 @@ export const age = {
 
 export const password = {
   messages: {
-    cn: (field, args) => field + msgFormatError
+    cn: (field, args) => '密码' + msgFormatError
   },
   validate: (value, args) => {
     let len = trimStr(value).length
@@ -257,7 +257,7 @@ export const password = {
 
 export const cnname = {
   messages: {
-    cn: (field, args) => field + msgFormatError
+    cn: (field, args) => '中文名' + msgFormatError
   },
   validate: (value, args) => {
     return /^[\u4e00-\u9fa5]{2,10}$/.test(trimStr(value))
@@ -364,5 +364,23 @@ export const isFullWidth = {
   },
   validate: (value, args) => {
     return !/\s/g.test(value)
+  }
+}
+
+export const passport = {
+  messages: {
+    cn: (field, args) => '护照录入信息不正确'
+  },
+  validate: (value, args) => {
+    return trimStr(value).length>=7 && trimStr(value).length<=20
+  }
+}
+
+export const taipassport = {
+  messages: {
+    cn: (field, args) => '台胞证录入信息不正确'
+  },
+  validate: (value, args) => {
+    return trimStr(value).length>=10
   }
 }
