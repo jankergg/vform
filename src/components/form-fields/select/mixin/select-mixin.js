@@ -2,7 +2,7 @@
 * @Author: jankergg
 * @Date:   2017-09-13 15:41:02
 * @Last Modified by:   jankergg
-* @Last Modified time: 2018-04-27 16:22:48
+* @Last Modified time: 2018-06-19 16:07:39
 */
 import base from '../../mixin/base-mixin'
 export default {
@@ -78,7 +78,6 @@ export default {
     },
     selectInit() {
       this.onValidate()
-      this.commit()
       if (this.innerValue && this.innerValue.length) {
         this.__oldValue = this.__str(this.innerValue)
       }

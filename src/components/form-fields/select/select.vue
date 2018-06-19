@@ -65,7 +65,7 @@
     methods: {
       // 把 innerValue由数组转化为字符
       __toValue (v) {
-        return v[0]
+        return v[0]||''
       },
       innerModel () {
         let val = ''
@@ -78,10 +78,11 @@
             val = this.formModel.rules.options[0].find(i => i.value && i.value === this.innerValue[0])
           }
         }
+        val = (typeof this.__toValue === 'function') ? this.__toValue(val) : val
         // mixins update
         return {
           name: this.name,
-          value: (typeof this.__toValue === 'function') ? this.__toValue(val) : val,
+          value: val,
           msg: this.isValid ? null : this.formModel.rules.errorMsg || this.formModel.rules.placeholder,
           isValid: this.isValid
         }

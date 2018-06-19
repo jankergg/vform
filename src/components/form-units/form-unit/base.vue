@@ -208,8 +208,6 @@ const formUnitBase = Vue.extend({
       return this.errorBag
     },
     innerModel() {
-      this.mountErrors()
-
       let _msg = (this.errorBag[0] && this.errorBag[0].msg) || '表单信息填写不完整'
       return {
         name: ((this.name || this.index) || 'formUnit').toString(),
@@ -292,6 +290,12 @@ const formUnitBase = Vue.extend({
           this.isValid = this.__isValid(this.formErrors)
           this.commit()
         }
+      }
+    },
+    formErrors: {
+      deep: true,
+      handler(v){
+        this.mountErrors()
       }
     }
   },

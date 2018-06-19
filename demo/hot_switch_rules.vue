@@ -21,7 +21,7 @@ import { formUnit} from '../src/components/form-units'
 // 导入配置文件
 const modelData = {
   certType: {
-    value: 'bankcard',
+    value: '',
     rules: {
       label: 'certType',
       type: 'za-select',
@@ -53,20 +53,16 @@ export default {
   created() {
     window.test = this
   },
-  mounted (){
-    this.$nextTick(() => {
-      window.fm = this.getForm('f1')
-    })
-  },
   methods: {
     onEvent(t, v) {
       console.warn(t, 'trigger: onEvent', v)
+      const fm = this.getForm('f1')
       if (v.name === 'certType'){
         let mod = JSON.parse(JSON.stringify(this.formModel))
         mod.certNo.rules.vRules = 'required|'+ v.value[0]
 
-        Object.keys(window.fm.formValues).map(key =>{
-          mod[key].value = window.fm.formValues[key]
+        Object.keys(fm.formValues).map(key =>{
+          mod[key].value = fm.formValues[key]
         })
         this.$nextTick(()=>{
           this.formModel.certNo.rules.vRules = 'required|'+ v.value[0]

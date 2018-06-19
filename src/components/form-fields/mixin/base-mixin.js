@@ -2,7 +2,7 @@
 /* @Description: 所有表单类型通用mixin,主要包含验证，数据处理等公共逻辑
 * @Date:   2017-09-13 15:41:02
 * @Last Modified by:   jankergg
-* @Last Modified time: 2018-06-02 12:00:20
+* @Last Modified time: 2018-06-19 17:50:17
 ********************************************************
 *符合以下标准的方法或者变量才可放在本base-mixin, 否则会污染组件 *
 *1、初始化操作 (挂载当前组件到formUnit)                     *
@@ -105,6 +105,9 @@ export default {
     // 用于向formUnit提交数据更新
     commit() {
       let mod = this.innerModel()
+      let neoValue = JSON.stringify(mod)
+      if (neoValue === this.__oldValue){ return }
+      this.__oldValue = neoValue
       // 如果该组件嵌套在另一个组件里
       if (this.inset) {
         this.$emit('onChange', mod, this.name)
@@ -114,7 +117,7 @@ export default {
         // 让formUnit知道是谁发出的变更
         //console.log('currentItem', this.name)
         this.formUnit.currentItem = this.name
-        this.$set(this.formUnit.formValues, this.name, mod.value || this.innerValue || '')
+        this.$set(this.formUnit.formValues, this.name, mod.value)
         // 上报formErrors
         if (mod.isValid) {
           this.$delete(this.formUnit.formErrors, this.name)
