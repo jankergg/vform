@@ -2,7 +2,7 @@
 * @Author: jankergg
 * @Date:   2017-12-21 10:52:26
 * @Last Modified by:   jankergg
-* @Last Modified time: 2018-05-31 16:40:16
+* @Last Modified time: 2018-06-25 13:56:07
 */
 // checker
 import checkers from './checker'
@@ -11,9 +11,9 @@ import inputs from './input'
 // select
 import selects from './select'
 
-import zaTitle from './title'
-
 import zaText from './text'
+import zaTitle from './title'
+import hidden from './hidden'
 
 export default {
   ...checkers.inline,
@@ -45,4 +45,4 @@ export const FORM_BLOCK_ITEM = {
   ...selects.block
 }
 
-export {zaTitle, questionSlot}
+export {zaTitle, questionSlot, hidden}

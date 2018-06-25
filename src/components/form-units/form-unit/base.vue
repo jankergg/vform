@@ -31,7 +31,7 @@ import * as ValidateRules from '../mixin/extend'
 
 import formRow from '../../layouts/form-row'
 import formBlock from '../../layouts/form-block'
-import { FORM_BLOCK_ITEM, zaTitle } from '../../form-fields'
+import { FORM_BLOCK_ITEM, zaTitle, hidden} from '../../form-fields'
 import uuid from '../../../mixin/uuid-mixin'
 import zhcn from '../../../libs/zh-CN'
 const formUnitBase = Vue.extend({
@@ -119,6 +119,9 @@ const formUnitBase = Vue.extend({
     getType(t) {
       if (t === 'title' || t === 'za-title') {
         return 'zaTitle'
+      }
+      if (t === 'hidden'){
+        return 'hidden'
       }
       if (this.__form_block_type_[t]) {
         return 'formBlock'
@@ -302,7 +305,8 @@ const formUnitBase = Vue.extend({
   components: {
     formRow,
     formBlock,
-    zaTitle
+    zaTitle,
+    hidden
   }
 })
 

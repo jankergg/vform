@@ -5,6 +5,12 @@ export default {
       type: 'title'
     }
   },
+  testHidde: {
+    value: '',
+    rules: {
+      type: 'hidden'
+    }
+  },
   button_group: {
     value: 'ccc',
     rules: {
