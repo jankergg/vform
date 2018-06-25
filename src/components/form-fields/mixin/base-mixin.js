@@ -2,7 +2,7 @@
 /* @Description: 所有表单类型通用mixin,主要包含验证，数据处理等公共逻辑
 * @Date:   2017-09-13 15:41:02
 * @Last Modified by:   jankergg
-* @Last Modified time: 2018-06-19 17:50:17
+* @Last Modified time: 2018-06-25 14:51:31
 ********************************************************
 *符合以下标准的方法或者变量才可放在本base-mixin, 否则会污染组件 *
 *1、初始化操作 (挂载当前组件到formUnit)                     *
@@ -42,8 +42,11 @@ export default {
     // idCard.innerValue = 'xxx' （禁止此类操作）
     // idCard.onValidate() (可以)
     // let v = idCard.isValid (可以)
-    this.isReadOnly = this.readonly
-    this.formUnit.fields[this.name] = this
+    // 跳过隐藏字段的校验
+    if (this.formModel.rules.type !== 'hidden'){
+      this.isReadOnly = this.readonly
+      this.formUnit.fields[this.name] = this
+    }
   },
   computed: {
     // 是否只读
