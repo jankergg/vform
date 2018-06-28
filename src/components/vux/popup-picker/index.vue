@@ -179,6 +179,7 @@ export default {
           this.currentData = nowData
         } else { // if no value, stay quiet
           // if set to auto update, do update the value
+          this.tempValue = getObject(val)
         }
       }
       this.$emit('on-shadow-change', getObject(val))
