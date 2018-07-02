@@ -63,6 +63,12 @@ export default {
         this.innerValue = this.$innerValue
         this.inputModel.value = this.formModel.value.detail || ''
       }
+    },
+    'formModel.rules': {
+      deep: true,
+      handler(v) {
+        this.inputModel.rules = Object.assign(this.inputModel.rules, this.formModel.rules.detail)
+      }
     }
   },
   computed: {
@@ -97,6 +103,7 @@ export default {
     this.datalist = JSON.parse(window.__select_area_data)
     this.innerValue = this.$innerValue
     this.inputModel.value = this.formModel.value.detail || ''
+    this.inputModel.rules = Object.assign(this.inputModel.rules, this.formModel.rules.detail)
   },
   methods: {
     onValidate() {
