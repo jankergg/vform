@@ -61,7 +61,7 @@ export default {
     eventHandler (e, type) {
       let eName = 'e_' + this.__eventType
       // 给定一个正则，用来过滤数据
-      if (this.formModel.rules.filter){
+      if (this.formModel.rules.filter && type==='keyup'){
         e.target.value = e.target.value.replace(this.formModel.rules.filter, '')
       }
       if (this.__eventType === type) {
