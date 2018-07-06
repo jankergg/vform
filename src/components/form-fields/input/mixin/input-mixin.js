@@ -2,7 +2,7 @@
 /* @Description: input 类型通用mixin
 * @Date:   2017-09-13 15:41:02
 * @Last Modified by:   jankergg
-* @Last Modified time: 2018-07-02 16:30:42
+* @Last Modified time: 2018-07-06 11:07:12
 */
 import base from '../../mixin/base-mixin'
 
@@ -60,10 +60,6 @@ export default {
     },
     eventHandler (e, type) {
       let eName = 'e_' + this.__eventType
-      // 给定一个正则，用来过滤数据
-      if (this.formModel.rules.filter && type==='keyup'){
-        e.target.value = e.target.value.replace(this.formModel.rules.filter, '')
-      }
       if (this.__eventType === type) {
         // 触发事件
         typeof this[eName] === 'function' && this[eName](e)
@@ -127,6 +123,12 @@ export default {
       })
     },
     onValidate () {
+      // 给定一个正则，用来过滤数据
+      if (this.formModel.rules.filter){
+        let v = this.innerValue
+        v = v.replace(this.formModel.rules.filter, '')
+        this.innerValue = v
+      }
       return this.handleValid(this.innerValue, res => {
         let timeout = 50
         // 针对input事件做节流
