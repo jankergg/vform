@@ -89,7 +89,7 @@ export default {
     }
   },
   CertType : {
-    value: 'yyyyy',
+    value: '',
     rules: {
       label: 'CertType',
       type: 'za-select',

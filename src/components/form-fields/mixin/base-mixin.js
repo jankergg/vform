@@ -94,7 +94,11 @@ export default {
     // 验证, 只提供基本验证，可以被组件复写
     onValidate() {
       return new Promise((resolve, reject) => {
+        const rules = this.formModel.rules
         let isValid = !!(this.innerValue && this.innerValue.length)
+        if (!rules || !rules.vRules || rules.vRules.indexOf('required')==-1){
+          isValid = true
+        }
         this.isValid = isValid
         if (isValid) {
           resolve(true)
@@ -159,12 +163,15 @@ export default {
     innerModel() {
       // 注意： __toValue 是个转换数据的方法，可以按需要在组件里写，如果不需要转，就不要写
       //console.warn(this.name, '__toValue::', this.__toValue)
+      let $value = (typeof this.__toValue === 'function') ? this.__toValue(this.innerValue) : this.innerValue
+      let $isValid = this.isValid
+
       return {
         name: this.name,
-        value: (typeof this.__toValue === 'function') ? this.__toValue(this.innerValue) : this.innerValue,
+        value: $value,
         index: this.index,
         msg: this.__errorMsg(),
-        isValid: this.isValid
+        isValid: $isValid
       }
     }
   }
