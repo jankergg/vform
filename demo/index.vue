@@ -31,9 +31,15 @@
     </form-unit>
     <form-unit name="f2" :formModels="formModel2" @formChange="onChange" @formEvent="onEvent">
     </form-unit>
+    <button @click="showActionSheet = true">show ActionSheet</button>
     <button @click="data1"> set data 1</button>
     <button @click="data2"> set data 2</button>
     <button @click="nextStep"> next step </button>
+
+    <div v-transfer-dom>
+      <actionsheet v-model="showActionSheet" :menus="{menu1: '苹果', menu2: '三星', menu3: '华为'}">
+      </actionsheet>
+    </div>
   </div>
 </template>
 
@@ -42,7 +48,7 @@
 import Vue from 'vue'
 import { formUnit} from '../src/components/form-units'
 import { Tab, TabItem } from '../src/components/vux'
-import {AlertPlugin, ConfirmPlugin, ToastPlugin, LoadingPlugin, zaTitle,checkList} from '../'
+import {TransferDom, actionsheet, AlertPlugin, ConfirmPlugin, ToastPlugin, LoadingPlugin, zaTitle,checkList} from '../'
 // 导入配置文件
 import modelData from './formModel'
 // 导入自定义组件
@@ -57,6 +63,7 @@ export default {
   data() {
     return {
       formModel: {},
+      showActionSheet: false,
       commonList: ['China', 'Japan', 'America' ],
       checklist001: [],
       formModel2: modelData,
@@ -66,6 +73,9 @@ export default {
   created() {
     window.test = this
     window.ap = AlertPlugin
+  },
+  directives: {
+    TransferDom
   },
   methods: {
     onEvent(t, v) {
@@ -166,6 +176,7 @@ export default {
     }
   },
   components: {
+    actionsheet,
     formUnit,
     testCust,
     Tab, TabItem,checkList,

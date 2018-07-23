@@ -12,7 +12,9 @@ import PopupPicker from './popup-picker'
 import DateTime from './datetime'
 import {Tab, TabItem} from './tab'
 import Loading from './loading'
+import actionsheet from './actionsheet'
 export {
+  actionsheet,
   checker, checkerItem,
   checkList,
   XAddress,

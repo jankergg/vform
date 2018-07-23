@@ -12,10 +12,11 @@ export default {
     }
   },
   button_group: {
-    value: 'ccc',
+    value: '',
     rules: {
       label: 'button_group',
       type: 'za-button_group',
+      vRules: 'required',
       options: [{name: '选项1', value:'aaa'},{name: '选项1', value:'ccc'},{name: '选项3', value:'bbb'}]
     }
   },
