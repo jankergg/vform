@@ -1,7 +1,7 @@
 {
   "name": "vformer",
   "main": "index.js",
-  "version": "0.1.10",
+  "version": "0.2.0",
   "description": "form generator build on vue",
   "author": "jankergg <jankergg@gmail.com>",
   "scripts": {
@@ -19,6 +19,7 @@
     "array-map": "^0.0.0",
     "array-shuffle": "^1.0.1",
     "autosize": "^3.0.20",
+    "china-region-dict": "^0.1.1",
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
     "vue": "^2.5.16",

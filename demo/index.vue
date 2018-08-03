@@ -32,6 +32,7 @@
     <form-unit name="f2" :formModels="formModel2" @formChange="onChange" @formEvent="onEvent">
     </form-unit>
     <button @click="showActionSheet = true">show ActionSheet</button>
+    <button @click="showConfirm">show ConfirmPlugin</button>
     <button @click="data1"> set data 1</button>
     <button @click="data2"> set data 2</button>
     <button @click="nextStep"> next step </button>
@@ -87,6 +88,13 @@ export default {
     },
     onChange(v) {
       console.warn('trigger: formChange::', v)
+    },
+    showConfirm(){
+      this.$vux.confirm.show({
+        title: 'Title',
+        content: 'Content',
+        confirmText: 'xxxxx'
+      })
     },
     data1() {
       let nd = JSON.parse(JSON.stringify(modelData))

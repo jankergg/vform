@@ -19,7 +19,7 @@
 import { XAddress } from '../../../vux'
 import zaInput from '../../input/input'
 import rootSelectMx from '../mixin/select-mixin'
-
+import areaData from 'china-region-dict'
 export default {
   name: 'za-address',
   components: {
@@ -96,11 +96,7 @@ export default {
     }
   },
   created() {
-    if (!window.__select_area_data) {
-      let data = require('./area')
-      window.__select_area_data = data.areaData.data
-    }
-    this.datalist = JSON.parse(window.__select_area_data)
+    this.datalist = areaData
     this.innerValue = this.$innerValue
     this.inputModel.value = this.formModel.value.detail || ''
     this.inputModel.rules = Object.assign(this.inputModel.rules, this.formModel.rules.detail)
