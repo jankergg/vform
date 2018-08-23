@@ -10,7 +10,8 @@ import AlertPlugin from './src/plugins/alert/index.js'
 import ConfirmPlugin from './src/plugins/confirm/index.js'
 import ToastPlugin from './src/plugins/toast/index.js'
 import LoadingPlugin from './src/plugins/loading/index.js'
-import {actionsheet, Tab, TabItem, checker, checkerItem, checkList, PopupPicker} from './src/components/vux'
+import {actionsheet, Tab, TabItem, checker, checkerItem, checkList, PopupPicker, Flexbox, FlexboxItem, Radio,
+  XTextarea, Picker, XAddress,Group} from './src/components/vux'
 import TransferDom from './src/directives/transfer-dom'
 const {
   // formUnit
