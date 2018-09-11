@@ -228,7 +228,8 @@ export const zipcode = {
   },
   validate: (value, args) => {
     // return /^1[3|4|5|7|8][0-9]\d{4,8}$/.demo(trimStr(value))
-    return /^[1-9][0-9]{5}$/.test(trimStr(value))
+    // return /^[1-9][0-9]{5}$/.test(trimStr(value))
+    return /^[0-9]{6}$/.test(trimStr(value))
   }
 }
 
