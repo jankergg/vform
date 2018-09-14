@@ -4,7 +4,7 @@
       在这个组件修改样式
 -->
 <template>
-  <row-2-col>
+  <row-2-col v-show="formModel.rules.rowshow">
     <template slot="label" v-if="formModel.rules.label">{{formModel.rules.label}}</template>
     <template slot="subLabel" v-if="formModel.rules.subLabel">{{formModel.rules.subLabel}}</template>
     <template slot="val" v-if="formModel.rules.type">
