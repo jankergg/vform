@@ -10,7 +10,7 @@ import XAddress from './x-address'
 import XTextarea from './x-textarea'
 import PopupPicker from './popup-picker'
 import DateTime from './datetime'
-import {Tab, TabItem} from './tab'
+import {Tab, TabItem,TabAdv,TabItemAdv} from './tab'
 import Loading from './loading'
 import actionsheet from './actionsheet'
 export {
@@ -21,6 +21,6 @@ export {
   XTextarea,
   PopupPicker,
   DateTime,
-  Tab, TabItem,
+  Tab, TabItem,TabAdv,TabItemAdv,
   Loading
 }
