@@ -21,7 +21,7 @@ let trimStr = function (str) {
 }
 export const mobile = {
   messages: {
-    cn: (field, args) => '手机号码录入不正确'
+    cn: (field, args) => '录入不正确'
   },
   validate: (value, args) => {
     return trimStr(value).length === 11
@@ -30,7 +30,7 @@ export const mobile = {
 
 export const checkmobile = {
   messages: {
-    cn: (field, args) => '手机号码录入不正确'
+    cn: (field, args) => '录入不正确'
   },
   validate: (value, args) => {
     return /^1[345789]\d{9}$/.test(trimStr(value))
@@ -224,7 +224,8 @@ export const tel = {
 
 export const zipcode = {
   messages: {
-    cn: (field, args) => '邮编' + msgFormatError
+    // cn: (field, args) => '邮编' + msgFormatError
+    cn: (field, args) => msgFormatError
   },
   validate: (value, args) => {
     // return /^1[3|4|5|7|8][0-9]\d{4,8}$/.demo(trimStr(value))
