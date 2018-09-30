@@ -89,7 +89,8 @@ export const minnum = {
 }
 export const phonenum = {
   messages: {
-    cn: (field, args) => field + '电话输入有误'
+    // cn: (field, args) => field + '电话输入有误'
+    cn: (field, args) =>'输入有误'
   },
   validate: (value, args) => {
     const telOrPhone = /^0/.test(trimStr(value))
