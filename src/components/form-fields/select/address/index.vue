@@ -8,7 +8,7 @@
   <div class="web-select-box">
     <div class="root-select-mask" v-if="isReadOnly"></div>
     <div class="weui-value">
-      <x-address :list="datalist" placeholder="省 / 市 / 县" v-model="innerValue" @on-hide="onHide" @on-change="onChange"></x-address>
+      <x-address :hideDistrict="hideDistrict" :placeholder="placeholder" :list="datalist" placeholder="省 / 市 / 县" v-model="innerValue" @on-hide="onHide" @on-change="onChange"></x-address>
     </div>
     <div class="weui-value">
       <za-input v-if="showInput" @formEvent="onInputEvent" @formChange="onInputChange" :inset="true" :formModel="inputModel" :name="name"> </za-input>
@@ -72,6 +72,15 @@ export default {
     }
   },
   computed: {
+    placeholder(){
+      if(this.formModel.rules.placeholder)
+        return this.formModel.rules.placeholder
+      else
+        return '省 / 市 / 县'
+    },
+    hideDistrict(){
+      return this.formModel.rules.hideDistrict
+    },
     showInput() {
       return this.formModel.rules.showDetail
     },
